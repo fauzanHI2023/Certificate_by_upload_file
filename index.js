@@ -1,21 +1,21 @@
-
-
 console.log("hello")
 const userName = document.getElementById("name");
+const userDate = document.getElementById("userDate");
 const submitBtn = document.getElementById("submitBtn");
 const { PDFDocument, rgb, degrees } = PDFLib;
 
 
 submitBtn.addEventListener("click", () => {
-    const val =userName.value;
-    if (val.trim() !== "" && userName.checkValidity()) {
-        // console.log(val);
-        generatePDF(val);
+  const nameValue = userName.value;
+  const dateValue = userDate.value;
+    if (nameValue.trim() !== "" && userName.checkValidity() && dateValue.trim() !== "") {
+        console.log(nameValue, dateValue);
+        generatePDF(nameValue, dateValue);
       } else {
         userName.reportValidity();
       }
 });
-const generatePDF = async (name) => {
+const generatePDF = async (name, date) => {
     const existingPdfBytes = await fetch("Certificate.pdf").then((res) =>
       res.arrayBuffer()
     );
@@ -36,10 +36,10 @@ const generatePDF = async (name) => {
    const firstPage = pages[0];
  
    // Draw a string of text diagonally across the first page
-   firstPage.drawText(name, {
+   firstPage.drawText(name, date, {
      x: 300,
      y: 270,
-     size: 58,
+     size: 40,
      font: SanChezFont ,
      color: rgb(0.2, 0.84, 0.67),
    });
