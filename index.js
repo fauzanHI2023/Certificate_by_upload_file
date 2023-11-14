@@ -44,7 +44,7 @@ const generatePDF = async (name, date) => {
      color: rgb(0.2, 0.84, 0.67),
    });
 
-   irstPage.drawText(date, {
+   firstPage.drawText(date, {
     x: 300,
     y: 70,
     size: 40,
