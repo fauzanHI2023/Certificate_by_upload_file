@@ -5,12 +5,12 @@ const submitBtn = document.getElementById("submitBtn");
 const { PDFDocument, rgb, degrees } = PDFLib;
 
 
-submitBtn.addEventListener("click", () => {
+submitBtn.addEventListener("click", async () => {
   const nameValue = userName.value;
   const dateValue = userDate.value;
     if (nameValue.trim() !== "" && userName.checkValidity() && dateValue.trim() !== "") {
         console.log(nameValue, dateValue);
-        generatePDF(nameValue, dateValue);
+        await generatePDF(nameValue, dateValue);
       } else {
         userName.reportValidity();
       }
@@ -36,7 +36,7 @@ const generatePDF = async (name, date) => {
    const firstPage = pages[0];
  
    // Draw a string of text diagonally across the first page
-   firstPage.drawText(name, date, {
+   firstPage.drawText(name, {
      x: 300,
      y: 270,
      size: 40,
