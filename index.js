@@ -40,7 +40,7 @@ const generatePDF = async (name) => {
    const formattedDate = `${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${currentDate.getDate()}`;
    firstPage.drawText(name, {
      x: 280,
-     y: 460,
+     y: 430,
      size: 20,
      font: SanChezFont ,
      color: rgb(0.2, 0.84, 0.67),
