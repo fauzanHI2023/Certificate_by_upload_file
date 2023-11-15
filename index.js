@@ -53,7 +53,7 @@ const generatePDF = async (name) => {
 
   const uniqueNumber = generateUniqueNumber();
   firstPage.drawText(`No Unik ${uniqueNumber}`, {
-    x: 150,
+    x: 3000,
     y: 150,
     size: 20,
     font: SanChezFont ,
