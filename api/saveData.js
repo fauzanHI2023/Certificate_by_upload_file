@@ -15,9 +15,7 @@ export default async (req, res) => {
         const db = client.db('certificate-tanampohon');
         const collection = db.collection('collection-tanampohon');
 
-        await collection.insertOne({
-            name: name,
-        });
+        await collection.insertOne({ name });
 
         client.close();
 
