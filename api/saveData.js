@@ -3,7 +3,7 @@ import { MongoClient } from 'mongodb';
 
 export default async (req, res) => {
     try {
-        const { name } = req.body;
+        const { name, certificateNumber, pdfDataUri } = req.body;
 
         const client = new MongoClient(process.env.MONGODB_URI, {
             useNewUrlParser: true,
@@ -15,19 +15,10 @@ export default async (req, res) => {
         const db = client.db('certificate-tanampohon');
         const collection = db.collection('collection-tanampohon');
 
-        const latestCertificate = await collection
-            .find()
-            .sort({ certificateNumber: -1 })
-            .limit(1)
-            .toArray();
+        const maxCertificate = await collection.findOne({}, { sort: { certificateNumber: -1 } });
+        const nextCertificateNumber = maxCertificate ? maxCertificate.certificateNumber + 1 : 1;
 
-        // Calculate the next certificate number
-        const nextCertificateNumber = latestCertificate.length
-        ? latestCertificate[0].certificateNumber + 1
-        : 1;
-
-
-        await collection.insertOne({ name, certificateNumber: nextCertificateNumber });
+        await collection.insertOne({ name, certificateNumber: nextCertificateNumber, pdfDataUri });
 
         client.close();
 

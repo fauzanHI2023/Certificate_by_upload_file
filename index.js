@@ -3,19 +3,18 @@ const userName = document.getElementById("name");
 const submitBtn = document.getElementById("submitBtn");
 const { PDFDocument, rgb, degrees } = PDFLib;
 
-const certificateNumber = certificateCounter++;
-
 submitBtn.addEventListener("click", async () => {
   const nameValue = userName.value;
     if (nameValue.trim() !== "" && userName.checkValidity()) {
         console.log(nameValue);
+        certificateCounter++;
         await generatePDF(nameValue);
         await sendToServer(nameValue, certificateNumber);
       } else {
         userName.reportValidity();
       }
 });
-const generatePDF = async (name) => {
+const generatePDF = async (name, certificateNumber) => {
     const existingPdfBytes = await fetch("CertificateNew.pdf").then((res) =>
       res.arrayBuffer()
     );
@@ -49,6 +48,7 @@ const generatePDF = async (name) => {
    });
 
    const uniqueNumber = generateUniqueNumber();
+   const certificateNumber = certificateCounter++;
    firstPage.drawText(`No. ${formattedDate} 00${certificateNumber} ${uniqueNumber}`, {
     x: 300,
     y: 70,
@@ -59,6 +59,7 @@ const generatePDF = async (name) => {
  
   // Serialize the PDFDocument to bytes (a Uint8Array)
   const pdfDataUri = await pdfDoc.saveAsBase64({ dataUri: true });
+  sendToServer(name, certificateNumber, pdfDataUri);
   saveAs(pdfDataUri,"newcertificate.pdf")
 };
 
@@ -75,6 +76,8 @@ const sendToServer = async (name) => {
           },
           body: JSON.stringify({
               name: name,
+              certificateNumber: certificateNumber,
+              pdfDataUri: pdfDataUri,
           }),
       });
 
