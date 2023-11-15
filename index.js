@@ -1,21 +1,18 @@
 console.log("hello")
 const userName = document.getElementById("name");
-const userDate = document.getElementById("userDate");
 const submitBtn = document.getElementById("submitBtn");
 const { PDFDocument, rgb, degrees } = PDFLib;
 
-
 submitBtn.addEventListener("click", async () => {
   const nameValue = userName.value;
-  const dateValue = userDate.value;
-    if (nameValue.trim() !== "" && userName.checkValidity() && dateValue.trim() !== "") {
-        console.log(nameValue, dateValue);
-        await generatePDF(nameValue, dateValue);
+    if (nameValue.trim() !== "" && userName.checkValidity()) {
+        console.log(nameValue);
+        await generatePDF(nameValue);
       } else {
         userName.reportValidity();
       }
 });
-const generatePDF = async (name, date) => {
+const generatePDF = async (name) => {
     const existingPdfBytes = await fetch("Certificate.pdf").then((res) =>
       res.arrayBuffer()
     );
@@ -36,6 +33,8 @@ const generatePDF = async (name, date) => {
    const firstPage = pages[0];
  
    // Draw a string of text diagonally across the first page
+   const currentDate = new Date();
+   const formattedDate = `${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${currentDate.getDate()}`;
    firstPage.drawText(name, {
      x: 300,
      y: 270,
@@ -44,8 +43,17 @@ const generatePDF = async (name, date) => {
      color: rgb(0.2, 0.84, 0.67),
    });
 
-   firstPage.drawText(date, {
+   firstPage.drawText(`Tanggal ${formattedDate}`, {
     x: 300,
+    y: 70,
+    size: 40,
+    font: SanChezFont ,
+    color: rgb(0.2, 0.84, 0.67),
+  });
+
+  const uniqueNumber = generateUniqueNumber();
+  firstPage.drawText(`No Unik ${uniqueNumber}`, {
+    x: 250,
     y: 70,
     size: 40,
     font: SanChezFont ,
@@ -55,5 +63,9 @@ const generatePDF = async (name, date) => {
   // Serialize the PDFDocument to bytes (a Uint8Array)
   const pdfDataUri = await pdfDoc.saveAsBase64({ dataUri: true });
   saveAs(pdfDataUri,"newcertificate.pdf")
+};
+
+const generateUniqueNumber = () => {
+  return Math.floor(Math.random() * 1000000) + 1;
 };
 
