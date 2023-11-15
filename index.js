@@ -40,8 +40,8 @@ const generatePDF = async (name, certificateNumber) => {
    const currentDate = new Date();
    const formattedDate = `${currentDate.getFullYear()}${currentDate.getMonth() + 1}${currentDate.getDate()}`;
    firstPage.drawText(name, {
-     x: 250,
-     y: 400,
+     x: 260,
+     y: 370,
      size: 20,
      font: SanChezFont ,
      color: rgb(1, 1, 1),
@@ -49,11 +49,11 @@ const generatePDF = async (name, certificateNumber) => {
 
    const uniqueNumber = generateUniqueNumber();
    firstPage.drawText(`No. ${formattedDate} 00${certificateNumber} ${uniqueNumber}`, {
-    x: 300,
-    y: 70,
+    x: 260,
+    y: 270,
     size: 20,
     font: SanChezFont ,
-    color: rgb(0.2, 0.84, 0.67),
+    color: rgb(1, 1, 1),
   });
  
   // Serialize the PDFDocument to bytes (a Uint8Array)
