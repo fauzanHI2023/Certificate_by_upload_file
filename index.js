@@ -46,7 +46,7 @@ const generatePDF = async (name) => {
    firstPage.drawText(`Tanggal ${formattedDate}`, {
     x: 300,
     y: 70,
-    size: 40,
+    size: 20,
     font: SanChezFont ,
     color: rgb(0.2, 0.84, 0.67),
   });
@@ -55,7 +55,7 @@ const generatePDF = async (name) => {
   firstPage.drawText(`No Unik ${uniqueNumber}`, {
     x: 250,
     y: 70,
-    size: 40,
+    size: 20,
     font: SanChezFont ,
     color: rgb(0.2, 0.84, 0.67),
   });
