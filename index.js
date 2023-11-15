@@ -44,7 +44,7 @@ const generatePDF = async (name, certificateNumber) => {
      y: 400,
      size: 20,
      font: SanChezFont ,
-     color: rgb(0.2, 0.84, 0.67),
+     color: rgb(0, 0, 0),
    });
 
    const uniqueNumber = generateUniqueNumber();
@@ -58,7 +58,7 @@ const generatePDF = async (name, certificateNumber) => {
  
   // Serialize the PDFDocument to bytes (a Uint8Array)
   const pdfDataUri = await pdfDoc.saveAsBase64({ dataUri: true });
-  saveAs(pdfDataUri,"newcertificate.pdf")
+  saveAs(pdfDataUri,"Certificate-TanamPohon.pdf")
 };
 
 const generateUniqueNumber = () => {
