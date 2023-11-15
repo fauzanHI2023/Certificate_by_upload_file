@@ -13,7 +13,7 @@ export default async (req, res) => {
         await client.connect();
 
         const db = client.db();
-        const collection = db.collection('certificates');
+        const collection = db.collection('collection-tanampohon');
 
         await collection.insertOne({
             name: name,
