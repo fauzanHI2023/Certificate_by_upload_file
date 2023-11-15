@@ -44,7 +44,7 @@ const generatePDF = async (name, certificateNumber) => {
      y: 400,
      size: 20,
      font: SanChezFont ,
-     color: rgb(255, 255, 255),
+     color: rgb(1, 1, 1),
    });
 
    const uniqueNumber = generateUniqueNumber();
