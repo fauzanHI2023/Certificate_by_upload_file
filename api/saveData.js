@@ -3,7 +3,7 @@ import { MongoClient } from 'mongodb';
 
 export default async (req, res) => {
     try {
-        const { name, certificateNumber, pdfDataUri } = req.body;
+        const { name } = req.body;
 
         const client = new MongoClient(process.env.MONGODB_URI, {
             useNewUrlParser: true,
@@ -15,10 +15,22 @@ export default async (req, res) => {
         const db = client.db('certificate-tanampohon');
         const collection = db.collection('collection-tanampohon');
 
-        const maxCertificate = await collection.findOne({}, { sort: { certificateNumber: -1 } });
-        const nextCertificateNumber = maxCertificate ? maxCertificate.certificateNumber + 1 : 1;
+        // Find the document with the certificate counter
+        const counterDoc = await collection.findOne({ _id: 'certificateCounter' });
 
-        await collection.insertOne({ name, certificateNumber: nextCertificateNumber, pdfDataUri });
+        // If the document doesn't exist, create it
+        if (!counterDoc) {
+        await collection.insertOne({ _id: 'certificateCounter', value: 1 });
+        }
+
+        // Increment the certificate number and get the next value
+        const nextCertificateNumber = await collection.findOneAndUpdate(
+        { _id: 'certificateCounter' },
+        { $inc: { value: 1 } },
+        { returnDocument: 'after' }
+        );
+
+        await collection.insertOne({ name, certificateNumber: nextCertificateNumber.value, });
 
         client.close();
 

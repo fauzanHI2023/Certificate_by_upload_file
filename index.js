@@ -1,4 +1,4 @@
-let certificateCounter = 1;
+let certificateCounter = null;
 const userName = document.getElementById("name");
 const submitBtn = document.getElementById("submitBtn");
 const { PDFDocument, rgb, degrees } = PDFLib;
@@ -8,8 +8,7 @@ submitBtn.addEventListener("click", async () => {
     if (nameValue.trim() !== "" && userName.checkValidity()) {
         console.log(nameValue);
         certificateCounter++;
-        await generatePDF(nameValue);
-        await sendToServer(nameValue, certificateNumber);
+        await sendToServer(nameValue);
       } else {
         userName.reportValidity();
       }
@@ -85,9 +84,19 @@ const sendToServer = async (name) => {
           throw new Error('Failed to send data to server');
       }
 
+      const responseData = await response.json();
+    if (responseData.success) {
+      // Store the received certificate number globally
+      certificateCounter = responseData.certificateNumber;
+
+      // Generate PDF using the received certificate number
+      generatePDF(name, certificateCounter);
+
       console.log('Data sent to server successfully');
-      alert(name);
+    } else {
+      throw new Error('Failed to save data on the server');
+    }
   } catch (error) {
-      console.error('Error sending data to server:', error);
+    console.error('Error sending data to server:', error);
   }
 };
