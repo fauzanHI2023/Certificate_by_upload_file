@@ -1,4 +1,5 @@
 console.log("hello")
+let certificateCounter = 1;
 const userName = document.getElementById("name");
 const submitBtn = document.getElementById("submitBtn");
 const { PDFDocument, rgb, degrees } = PDFLib;
@@ -32,7 +33,10 @@ const generatePDF = async (name) => {
    const pages = pdfDoc.getPages();
    const firstPage = pages[0];
  
-   // Draw a string of text diagonally across the first page
+   
+   // Draw a string of text diagonally across the first pagest
+
+   const certificateNumber = certificateCounter++;
    const currentDate = new Date();
    const formattedDate = `${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${currentDate.getDate()}`;
    firstPage.drawText(name, {
@@ -44,7 +48,7 @@ const generatePDF = async (name) => {
    });
 
    const uniqueNumber = generateUniqueNumber();
-   firstPage.drawText(`Tanggal ${formattedDate} /n ${uniqueNumber}`, {
+   firstPage.drawText(`Tanggal ${formattedDate} 00${certificateNumber} ${uniqueNumber}`, {
     x: 300,
     y: 70,
     size: 20,
