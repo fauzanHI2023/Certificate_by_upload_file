@@ -7,7 +7,6 @@ submitBtn.addEventListener("click", async () => {
   const nameValue = userName.value;
     if (nameValue.trim() !== "" && userName.checkValidity()) {
         console.log(nameValue);
-        certificateCounter++;
         await sendToServer(nameValue);
       } else {
         userName.reportValidity();
