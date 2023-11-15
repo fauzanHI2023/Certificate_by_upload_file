@@ -37,9 +37,9 @@ const generatePDF = async (name) => {
 
    const certificateNumber = certificateCounter++;
    const currentDate = new Date();
-   const formattedDate = `${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${currentDate.getDate()}`;
+   const formattedDate = `${currentDate.getFullYear()}${currentDate.getMonth() + 1}${currentDate.getDate()}`;
    firstPage.drawText(name, {
-     x: 280,
+     x: 250,
      y: 400,
      size: 20,
      font: SanChezFont ,
@@ -64,3 +64,25 @@ const generateUniqueNumber = () => {
   return Math.floor(Math.random() * 1000000) + 1;
 };
 
+const sendToServer = async (name, pdfDataUri) => {
+  try {
+      const response = await fetch('/api/saveData', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+              name: name,
+              pdfDataUri: pdfDataUri,
+          }),
+      });
+
+      if (!response.ok) {
+          throw new Error('Failed to send data to server');
+      }
+
+      console.log('Data sent to server successfully');
+  } catch (error) {
+      console.error('Error sending data to server:', error);
+  }
+};
