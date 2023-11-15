@@ -1,4 +1,3 @@
-console.log("hello")
 let certificateCounter = 1;
 const userName = document.getElementById("name");
 const submitBtn = document.getElementById("submitBtn");
@@ -14,7 +13,7 @@ submitBtn.addEventListener("click", async () => {
       }
 });
 const generatePDF = async (name) => {
-    const existingPdfBytes = await fetch("Certificate.pdf").then((res) =>
+    const existingPdfBytes = await fetch("CertificateNew.pdf").then((res) =>
       res.arrayBuffer()
     );
 
