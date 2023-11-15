@@ -2,12 +2,11 @@
 
 import { MongoClient } from 'mongodb';
 
-const { MONGODB_URI, MONGODB_DB } = process.env;
 
 export default async function handler(req, res) {
   try {
     // Connect to the MongoDB cluster
-    const client = await MongoClient.connect(MONGODB_URI, {
+    const client = await MongoClient.connect(process.env.MONGODB_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
