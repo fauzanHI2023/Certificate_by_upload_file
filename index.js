@@ -35,7 +35,7 @@ const generatePDF = async (name, certificateNumber) => {
    const firstPage = pages[0];
 
   // Calculate the center position
-   const centerX = firstPage.getWidth() / 3;
+   const centerX = firstPage.getWidth() / 2.6;
    const centerY = firstPage.getHeight() / 2.3;
 
    const centerXno = firstPage.getWidth() / 4;
