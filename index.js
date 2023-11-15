@@ -58,7 +58,6 @@ const generatePDF = async (name, certificateNumber) => {
  
   // Serialize the PDFDocument to bytes (a Uint8Array)
   const pdfDataUri = await pdfDoc.saveAsBase64({ dataUri: true });
-  sendToServer(name, certificateNumber, pdfDataUri);
   saveAs(pdfDataUri,"newcertificate.pdf")
 };
 
