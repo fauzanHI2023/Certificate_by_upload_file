@@ -1,4 +1,4 @@
-let certificateCounter = null;
+let certificateCounter;
 const userName = document.getElementById("name");
 const submitBtn = document.getElementById("submitBtn");
 const { PDFDocument, rgb, degrees } = PDFLib;
@@ -7,7 +7,9 @@ submitBtn.addEventListener("click", async () => {
   const nameValue = userName.value;
     if (nameValue.trim() !== "" && userName.checkValidity()) {
         console.log(nameValue);
-        await sendToServer(nameValue);
+        certificateCounter = generateUniqueNumber();
+        await generatePDF(nameValue, certificateCounter);
+        await sendToServer(nameValue, certificateCounter);
       } else {
         userName.reportValidity();
       }
@@ -63,7 +65,7 @@ const generateUniqueNumber = () => {
   return Math.floor(Math.random() * 1000000) + 1;
 };
 
-const sendToServer = async (name) => {
+const sendToServer = async (name, certificateNumber) => {
   try {
       const response = await fetch('https://certificatehitanampohon.vercel.app/api/saveData', {
           method: 'POST',
@@ -72,26 +74,17 @@ const sendToServer = async (name) => {
           },
           body: JSON.stringify({
               name: name,
+              certificateNumber: certificateNumber,
           }),
       });
 
       if (!response.ok) {
-          throw new Error('Failed to send data to server');
+        throw new Error('Failed to send data to server');
       }
-
-      const responseData = await response.json();
-    if (responseData.success) {
-      // Store the received certificate number globally
-      certificateCounter = responseData.certificateNumber;
-
-      // Generate PDF using the received certificate number
-      generatePDF(name, certificateCounter);
-
+  
       console.log('Data sent to server successfully');
-    } else {
-      throw new Error('Failed to save data on the server');
+      alert(name);
+    } catch (error) {
+      console.error('Error sending data to server:', error);
     }
-  } catch (error) {
-    console.error('Error sending data to server:', error);
-  }
 };
