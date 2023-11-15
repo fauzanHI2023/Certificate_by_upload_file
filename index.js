@@ -8,6 +8,7 @@ submitBtn.addEventListener("click", async () => {
     if (nameValue.trim() !== "" && userName.checkValidity()) {
         console.log(nameValue);
         await generatePDF(nameValue);
+        await sendToServer(nameValue);
       } else {
         userName.reportValidity();
       }
