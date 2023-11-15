@@ -82,6 +82,7 @@ const sendToServer = async (name) => {
       }
 
       console.log('Data sent to server successfully');
+      console.log(name);
   } catch (error) {
       console.error('Error sending data to server:', error);
   }
