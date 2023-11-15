@@ -40,7 +40,7 @@ const generatePDF = async (name, certificateNumber) => {
    const currentDate = new Date();
    const formattedDate = `${currentDate.getFullYear()}${currentDate.getMonth() + 1}${currentDate.getDate()}`;
    firstPage.drawText(name, {
-     x: 285,
+     x: 260,
      y: 370,
      size: 20,
      font: SanChezFont ,
@@ -49,7 +49,7 @@ const generatePDF = async (name, certificateNumber) => {
 
    const uniqueNumber = generateUniqueNumber();
    firstPage.drawText(`No. ${formattedDate} 00${certificateNumber} ${uniqueNumber}`, {
-    x: 20,
+    x: 40,
     y: 270,
     size: 20,
     font: SanChezFont ,
