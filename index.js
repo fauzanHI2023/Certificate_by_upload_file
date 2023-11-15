@@ -37,6 +37,14 @@ const generatePDF = async (name, certificateNumber) => {
    
    // Draw a string of text diagonally across the first pagest
 
+   const { width } = SanChezFont.layoutText(`Certificate Number: ${certificateNumber}`, {
+    fontSize: 20,
+  });
+
+  // Calculate the center position
+   const centerX = firstPage.getWidth() / 2 - width / 2;
+   const centerY = firstPage.getHeight() / 2;
+
    const currentDate = new Date();
    const formattedDate = `${currentDate.getFullYear()}${currentDate.getMonth() + 1}${currentDate.getDate()}`;
    firstPage.drawText(name, {
@@ -49,8 +57,8 @@ const generatePDF = async (name, certificateNumber) => {
 
    const uniqueNumber = generateUniqueNumber();
    firstPage.drawText(`No. ${formattedDate} 00${certificateNumber} ${uniqueNumber}`, {
-    x: 40,
-    y: 270,
+    x: centerX,
+    y: centerY,
     size: 20,
     font: SanChezFont ,
     color: rgb(1, 1, 1),
