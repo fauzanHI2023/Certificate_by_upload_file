@@ -38,7 +38,7 @@ const generatePDF = async (name, certificateNumber) => {
    const centerX = firstPage.getWidth() / 3;
    const centerY = firstPage.getHeight() / 2;
 
-   const centerXno = firstPage.getWidth() / 2;
+   const centerXno = firstPage.getWidth() / 3;
    const centerYno = firstPage.getHeight() / 3;
 
    const currentDate = new Date();
