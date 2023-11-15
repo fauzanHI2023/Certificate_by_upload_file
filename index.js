@@ -35,8 +35,8 @@ const generatePDF = async (name, certificateNumber) => {
    const firstPage = pages[0];
 
   // Calculate the center position
-   const centerX = firstPage.getWidth() / 2;
-   const centerY = firstPage.getHeight() / 3;
+   const centerX = firstPage.getWidth() / 3;
+   const centerY = firstPage.getHeight() / 2;
 
    const currentDate = new Date();
    const formattedDate = `${currentDate.getFullYear()}${currentDate.getMonth() + 1}${currentDate.getDate()}`;
