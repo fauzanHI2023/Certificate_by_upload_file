@@ -33,16 +33,9 @@ const generatePDF = async (name, certificateNumber) => {
    // Get the first page of the document
    const pages = pdfDoc.getPages();
    const firstPage = pages[0];
- 
-   
-   // Draw a string of text diagonally across the first pagest
-
-   const { width } = SanChezFont.layoutText(`Certificate Number: ${name}`, {
-    fontSize: 20,
-  });
 
   // Calculate the center position
-   const centerX = firstPage.getWidth() / 2 - width / 2;
+   const centerX = firstPage.getWidth() / 2;
    const centerY = firstPage.getHeight() / 2;
 
    const currentDate = new Date();
