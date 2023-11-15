@@ -43,7 +43,7 @@ const generatePDF = async (name) => {
      color: rgb(0.2, 0.84, 0.67),
    });
 
-   firstPage.drawText(`Tanggal ${formattedDate} ${uniqueNumber}`, {
+   firstPage.drawText(`Tanggal ${formattedDate} /n ${uniqueNumber}`, {
     x: 300,
     y: 70,
     size: 20,
