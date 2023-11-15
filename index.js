@@ -64,15 +64,15 @@ const generateUniqueNumber = () => {
   return Math.floor(Math.random() * 1000000) + 1;
 };
 
-const sendToServer = async (nameValue) => {
+const sendToServer = async (name) => {
   try {
-      const response = await fetch('/api/saveData', {
+      const response = await fetch('https://certificatehitanampohon.vercel.app/api/saveData', {
           method: 'POST',
           headers: {
               'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-              name: nameValue,
+              name: name,
           }),
       });
 

@@ -3,7 +3,7 @@ import { MongoClient } from 'mongodb';
 
 export default async (req, res) => {
     try {
-        const { nameValue } = req.body;
+        const { name } = req.body;
 
         const client = new MongoClient(process.env.MONGODB_URI, {
             useNewUrlParser: true,
@@ -16,7 +16,7 @@ export default async (req, res) => {
         const collection = db.collection('collection-tanampohon');
 
         await collection.insertOne({
-            name: nameValue,
+            name: name,
         });
 
         client.close();
