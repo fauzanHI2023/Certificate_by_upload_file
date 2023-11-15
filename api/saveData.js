@@ -15,7 +15,19 @@ export default async (req, res) => {
         const db = client.db('certificate-tanampohon');
         const collection = db.collection('collection-tanampohon');
 
-        await collection.insertOne({ name });
+        const latestCertificate = await collection
+            .find()
+            .sort({ certificateNumber: -1 })
+            .limit(1)
+            .toArray();
+
+        // Calculate the next certificate number
+        const nextCertificateNumber = latestCertificate.length
+        ? latestCertificate[0].certificateNumber + 1
+        : 1;
+
+
+        await collection.insertOne({ name, certificateNumber: nextCertificateNumber });
 
         client.close();
 
