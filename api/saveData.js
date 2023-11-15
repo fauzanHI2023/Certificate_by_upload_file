@@ -3,7 +3,7 @@ import { MongoClient } from 'mongodb';
 
 export default async (req, res) => {
     try {
-        const { name, pdfDataUri } = req.body;
+        const { name } = req.body;
 
         const client = new MongoClient(process.env.MONGODB_URI, {
             useNewUrlParser: true,
@@ -17,7 +17,6 @@ export default async (req, res) => {
 
         await collection.insertOne({
             name: name,
-            pdfDataUri: pdfDataUri,
         });
 
         client.close();

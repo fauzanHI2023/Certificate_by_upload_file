@@ -64,7 +64,7 @@ const generateUniqueNumber = () => {
   return Math.floor(Math.random() * 1000000) + 1;
 };
 
-const sendToServer = async (name, pdfDataUri) => {
+const sendToServer = async (nameValue) => {
   try {
       const response = await fetch('/api/saveData', {
           method: 'POST',
@@ -72,8 +72,7 @@ const sendToServer = async (name, pdfDataUri) => {
               'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-              name: name,
-              pdfDataUri: pdfDataUri,
+              name: nameValue,
           }),
       });
 
