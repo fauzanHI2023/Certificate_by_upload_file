@@ -74,8 +74,6 @@ const sendToServer = async (name) => {
           },
           body: JSON.stringify({
               name: name,
-              certificateNumber: certificateNumber,
-              pdfDataUri: pdfDataUri,
           }),
       });
 
