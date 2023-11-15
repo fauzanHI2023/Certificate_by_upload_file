@@ -43,7 +43,7 @@ const generatePDF = async (name) => {
      color: rgb(0.2, 0.84, 0.67),
    });
 
-   firstPage.drawText(`Tanggal ${formattedDate} ${uniqueNumber}`, {
+   firstPage.drawText(`Tanggal ${formattedDate}`, {
     x: 300,
     y: 70,
     size: 20,
@@ -52,6 +52,13 @@ const generatePDF = async (name) => {
   });
 
   const uniqueNumber = generateUniqueNumber();
+  firstPage.drawText(`No Unik ${uniqueNumber}`, {
+    x: 300,
+    y: 150,
+    size: 20,
+    font: SanChezFont ,
+    color: rgb(0.2, 0.84, 0.67),
+  });
  
   // Serialize the PDFDocument to bytes (a Uint8Array)
   const pdfDataUri = await pdfDoc.saveAsBase64({ dataUri: true });
