@@ -13,14 +13,14 @@ export default async function handler(req, res) {
     const transporter = nodemailer.createTransport({
       service: 'outlook',
       auth: {
-        user: 'Admin@human-initiative.org',
-        pass: '1234Pkpu',
+        user: 'fauzan.aldi@human-initiative.org',
+        pass: '345678Aldi#@',
       },
     });
 
     // Send email
     await transporter.sendMail({
-      from: 'Admin@human-initiative.org',
+      from: 'fauzan.aldi@human-initiative.org',
       to: email,
       subject: 'Certificate Attached',
       text: `Dear ${name},\n\nThank you for submitting the form. Your certificate is attached.\n\nBest Regards,\nYour Organization`,
