@@ -20,7 +20,7 @@ export default async function handler(req, res) {
 
     // Send email
     await transporter.sendMail({
-      from: 'your-email@gmail.com',
+      from: 'Admin@human-initiative.org',
       to: email,
       subject: 'Certificate Attached',
       text: `Dear ${name},\n\nThank you for submitting the form. Your certificate is attached.\n\nBest Regards,\nYour Organization`,
