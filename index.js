@@ -15,7 +15,7 @@ submitBtn.addEventListener("click", async () => {
       }
 });
 const generatePDF = async (name, certificateNumber) => {
-    const existingPdfBytes = await fetch("CertificateNew.pdf").then((res) =>
+    const existingPdfBytes = await fetch("CertificateBaru.pdf").then((res) =>
       res.arrayBuffer()
     );
 
@@ -35,9 +35,9 @@ const generatePDF = async (name, certificateNumber) => {
    const firstPage = pages[0];
 
   // Calculate the center position
-   const text = name;
-   const textWidth = SanChezFont.widthOfTextAtSize(text, 20);
-   const centerX = firstPage.getWidth() / 2.6 - textWidth;
+  //  const text = name;
+  //  const textWidth = SanChezFont.widthOfTextAtSize(text, 20);
+   const centerX = firstPage.getWidth() / 2.6;
    const centerY = firstPage.getHeight() / 2.3;
 
    const centerXno = firstPage.getWidth() / 4;
@@ -45,22 +45,22 @@ const generatePDF = async (name, certificateNumber) => {
 
    const currentDate = new Date();
    const formattedDate = `${currentDate.getFullYear()}${currentDate.getMonth() + 1}${currentDate.getDate()}`;
-   firstPage.drawText(text, {
-     x: centerX,
-     y: centerY,
-     size: 20,
-     font: SanChezFont ,
-     color: rgb(1, 1, 1),
+    firstPage.drawText(name, {
+      x: centerX,
+      y: centerY,
+      size: 20,
+      font: SanChezFont ,
+      color: rgb(1, 1, 1),
    });
 
    const uniqueNumber = generateUniqueNumber();
    firstPage.drawText(`No. ${formattedDate} 00${certificateNumber} ${uniqueNumber}`, {
-    x: centerXno,
-    y: centerYno,
-    size: 20,
-    font: SanChezFont ,
-    color: rgb(1, 1, 1),
-  });
+      x: centerXno,
+      y: centerYno,
+      size: 20,
+      font: SanChezFont ,
+      color: rgb(1, 1, 1),
+   });
  
   // Serialize the PDFDocument to bytes (a Uint8Array)
   const pdfDataUri = await pdfDoc.saveAsBase64({ dataUri: true });
