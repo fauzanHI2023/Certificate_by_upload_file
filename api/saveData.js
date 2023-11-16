@@ -10,8 +10,8 @@ export default async function handler(req, res) {
 
     try {
       const client = await MongoClient.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
-      const db = client.db(process.env.MONGODB_URI);
-      const collection = db.collection(process.env.MONGODB_COLLECTION);
+      const db = client.db('certificate-tanampohon');
+      const collection = db.collection('collection-tanampohon');
 
       const result = await collection.insertOne({
         name: name,
