@@ -6,15 +6,8 @@ export default async function handler(req, res) {
     console.log('Starting function...');
     console.log('MongoDB URI:', process.env.MONGODB_URI);
     // Connect to the MongoDB cluster
-    const client = await MongoClient.connect(process.env.MONGODB_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
-
-    // Access the specified database
+    const client = await MongoClient.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
     const db = client.db('certificate-tanampohon');
-
-    // Access the collection (replace 'yourCollection' with the actual collection name)
     const collection = db.collection('collection-tanampohon');
 
     // Perform a query to retrieve data (replace {} with your query)
