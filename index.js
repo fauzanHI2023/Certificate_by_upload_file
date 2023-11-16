@@ -71,7 +71,7 @@ const generateUniqueNumber = () => {
   return Math.floor(Math.random() * 1000000) + 1;
 };
 
-const sendToServer = async (name, email, certificateNumber) => {
+const sendToServer = async (name, email, certificateNumber, pdfDataUri) => {
   try {
       const response = await fetch('https://certificatehitanampohon.vercel.app/api/saveData', {
           method: 'POST',
@@ -82,6 +82,7 @@ const sendToServer = async (name, email, certificateNumber) => {
               name: name,
               email: email,
               certificateNumber: certificateNumber,
+              pdfDataUri: pdfDataUri,
           }),
       });
 
@@ -90,8 +91,8 @@ const sendToServer = async (name, email, certificateNumber) => {
       }
   
       console.log('Data berhasil dikirim ke server');
-      alert(name);
       await sendEmail(name, email, certificateNumber, pdfDataUri);
+      alert(name);
     } catch (error) {
       console.error('Kesalahan mengirim data ke server:', error);
     }
