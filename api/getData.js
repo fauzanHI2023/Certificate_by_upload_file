@@ -1,5 +1,3 @@
-// api/getdata.js
-
 import { MongoClient } from 'mongodb';
 
 

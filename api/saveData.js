@@ -2,7 +2,7 @@ import { MongoClient } from 'mongodb';
 
 export default async function handler(req, res) {
   if (req.method === 'POST') {
-    const { name, certificateNumber } = req.body;
+    const { name, email, certificateNumber } = req.body;
 
     if (!name || !certificateNumber) {
       return res.status(400).json({ error: 'Name and certificateNumber are required' });
@@ -15,6 +15,7 @@ export default async function handler(req, res) {
 
       const result = await collection.insertOne({
         name: name,
+        email: email,
         certificateNumber: certificateNumber,
       });
 

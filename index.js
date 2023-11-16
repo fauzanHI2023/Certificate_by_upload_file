@@ -1,15 +1,17 @@
 let certificateCounter;
 const userName = document.getElementById("name");
+const userEmail = document.getElementById("email");
 const submitBtn = document.getElementById("submitBtn");
 const { PDFDocument, rgb, degrees } = PDFLib;
 
 submitBtn.addEventListener("click", async () => {
   const nameValue = userName.value;
+  const emailValue = userEmail.value;
     if (nameValue.trim() !== "" && userName.checkValidity()) {
         console.log(nameValue);
         certificateCounter = generateUniqueNumber();
         await generatePDF(nameValue, certificateCounter);
-        await sendToServer(nameValue, certificateCounter);
+        await sendToServer(nameValue, emailValue, certificateCounter);
       } else {
         userName.reportValidity();
       }
@@ -69,7 +71,7 @@ const generateUniqueNumber = () => {
   return Math.floor(Math.random() * 1000000) + 1;
 };
 
-const sendToServer = async (name, certificateNumber) => {
+const sendToServer = async (name, email, certificateNumber) => {
   try {
       const response = await fetch('https://certificatehitanampohon.vercel.app/api/saveData', {
           method: 'POST',
@@ -78,6 +80,7 @@ const sendToServer = async (name, certificateNumber) => {
           },
           body: JSON.stringify({
               name: name,
+              email: email,
               certificateNumber: certificateNumber,
           }),
       });
