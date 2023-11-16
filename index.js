@@ -12,7 +12,6 @@ submitBtn.addEventListener("click", async () => {
         certificateCounter = generateUniqueNumber();
         await generatePDF(nameValue, certificateCounter);
         await sendToServer(nameValue, emailValue, certificateCounter);
-        await sendEmail(nameValue, certificateCounter);
       } else {
         userName.reportValidity();
       }
