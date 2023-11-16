@@ -38,7 +38,7 @@ const generatePDF = async (name, certificateNumber) => {
   //  const text = name;
   //  const textWidth = SanChezFont.widthOfTextAtSize(text, 20);
    const centerX = firstPage.getWidth() / 2.6;
-   const centerY = firstPage.getHeight() - 4;
+   const centerY = firstPage.getHeight() - 2;
 
    const centerXno = firstPage.getWidth() / 4;
    const centerYno = firstPage.getHeight() / 2;
@@ -56,7 +56,7 @@ const generatePDF = async (name, certificateNumber) => {
    const uniqueNumber = generateUniqueNumber();
    firstPage.drawText(`${formattedDate} 00${certificateNumber} ${uniqueNumber}`, {
       x: centerXno,
-      y: 200,
+      y: 300,
       size: 15,
       font: SanChezFont ,
       color: rgb(1, 1, 1),
