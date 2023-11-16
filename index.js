@@ -19,22 +19,20 @@ const generatePDF = async (name, certificateNumber) => {
       res.arrayBuffer()
     );
 
-    // Load a PDFDocument from the existing PDF bytes
+    // Memuat dokumen
     const pdfDoc = await PDFDocument.load(existingPdfBytes);
     pdfDoc.registerFontkit(fontkit);
 
-    
-  //get font
   const fontBytes = await fetch("Sanchez-Regular.ttf").then((res) =>
   res.arrayBuffer()
 );
-  // Embed our custom font in the document
+  // Memasukkan font ke dokumen
   const SanChezFont  = await pdfDoc.embedFont(fontBytes);
-   // Get the first page of the document
+   // Halaman pertama dokumen
    const pages = pdfDoc.getPages();
    const firstPage = pages[0];
 
-  // Calculate the center position
+  // Menghitung position
   //  const text = name;
   //  const textWidth = SanChezFont.widthOfTextAtSize(text, 20);
    const centerX = firstPage.getWidth() / 2.6;
@@ -85,12 +83,12 @@ const sendToServer = async (name, certificateNumber) => {
       });
 
       if (!response.ok) {
-        throw new Error('Failed to send data to server');
+        throw new Error('Gagal mengirim data ke server');
       }
   
-      console.log('Data sent to server successfully');
+      console.log('Data berhasil dikirim ke server');
       alert(name);
     } catch (error) {
-      console.error('Error sending data to server:', error);
+      console.error('Kesalahan mengirim data ke server:', error);
     }
 };
