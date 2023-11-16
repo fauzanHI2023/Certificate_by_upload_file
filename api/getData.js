@@ -12,7 +12,7 @@ export default async function handler(req, res) {
     });
 
     // Access the specified database
-    const db = client.db(MONGODB_DB);
+    const db = client.db('certificate-tanampohon');
 
     // Access the collection (replace 'yourCollection' with the actual collection name)
     const collection = db.collection('collection-tanampohon');
