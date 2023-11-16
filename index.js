@@ -57,7 +57,7 @@ const generatePDF = async (name, certificateNumber) => {
    firstPage.drawText(`${formattedDate}-00${certificateNumber}`, {
       x: 170,
       y: 1370,
-      size: 20,
+      size: 22,
       font: SanChezFont ,
       color: rgb(1, 1, 1),
    });
@@ -91,7 +91,33 @@ const sendToServer = async (name, email, certificateNumber) => {
   
       console.log('Data berhasil dikirim ke server');
       alert(name);
+      await sendEmail(name, email, certificateNumber, pdfDataUri);
     } catch (error) {
       console.error('Kesalahan mengirim data ke server:', error);
     }
+};
+
+const sendEmail = async (name, email, certificateNumber, pdfDataUri) => {
+  try {
+    const emailResponse = await fetch('https://certificatehitanampohon.vercel.app/api/sendEmail', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name: name,
+        email: email,
+        certificateNumber: certificateNumber,
+        pdfDataUri: pdfDataUri,
+      }),
+    });
+
+    if (!emailResponse.ok) {
+      throw new Error('Failed to send email');
+    }
+
+    console.log('Email sent successfully');
+  } catch (error) {
+    console.error('Error sending email:', error);
+  }
 };
