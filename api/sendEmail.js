@@ -31,6 +31,7 @@ export default async function handler(req, res) {
           encoding: 'base64',
         },
       ],
+      timeout: 30000,
     });
 
     console.log('Email sent successfully');
