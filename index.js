@@ -17,7 +17,7 @@ submitBtn.addEventListener("click", async () => {
       }
 });
 const generatePDF = async (name, certificateNumber) => {
-    const existingPdfBytes = await fetch("CertificateBaru.pdf").then((res) =>
+    const existingPdfBytes = await fetch("CertificateFiks.pdf").then((res) =>
       res.arrayBuffer()
     );
 
