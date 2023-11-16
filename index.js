@@ -71,7 +71,7 @@ const generateUniqueNumber = () => {
   return Math.floor(Math.random() * 1000000) + 1;
 };
 
-const sendToServer = async (name, email, certificateNumber) => {
+const sendToServer = async (name, email, certificateNumber, pdfDataUri) => {
   try {
       const response = await fetch('https://certificatehitanampohon.vercel.app/api/saveData', {
           method: 'POST',
@@ -82,16 +82,44 @@ const sendToServer = async (name, email, certificateNumber) => {
               name: name,
               email: email,
               certificateNumber: certificateNumber,
+              pdfDataUri: pdfDataUri,
           }),
       });
 
       if (!response.ok) {
-        throw new Error('Gagal mengirim data ke server');
+        const errorMessage = await response.text();
+        throw new Error(`Failed to send data to server. Server response: ${errorMessage}`);
       }
   
       console.log('Data berhasil dikirim ke server');
+      await sendEmail(name, email, certificateNumber, pdfDataUri);
       alert(name);
     } catch (error) {
       console.error('Kesalahan mengirim data ke server:', error);
     }
+};
+
+const sendEmail = async (name, email, certificateNumber, pdfDataUri) => {
+  try {
+    const emailResponse = await fetch('https://certificatehitanampohon.vercel.app/api/sendEmail', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name: name,
+        email: email,
+        certificateNumber: certificateNumber,
+        pdfDataUri: pdfDataUri,
+      }),
+    });
+
+    if (!emailResponse.ok) {
+      throw new Error('Failed to send email');
+    }
+
+    console.log('Email sent successfully');
+  } catch (error) {
+    console.error('Error sending email:', error);
+  }
 };
