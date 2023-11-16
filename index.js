@@ -54,9 +54,9 @@ const generatePDF = async (name, certificateNumber) => {
    });
 
    const uniqueNumber = generateUniqueNumber();
-   firstPage.drawText(`No. ${formattedDate} 00${certificateNumber} ${uniqueNumber}`, {
+   firstPage.drawText(`${formattedDate} 00${certificateNumber} ${uniqueNumber}`, {
       x: centerXno,
-      y: centerYno,
+      y: 200,
       size: 15,
       font: SanChezFont ,
       color: rgb(1, 1, 1),
