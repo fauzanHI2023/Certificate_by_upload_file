@@ -3,6 +3,7 @@ import { MongoClient } from 'mongodb';
 
 export default async function handler(req, res) {
   try {
+    console.log('MongoDB URI:', process.env.MONGODB_URI);
     // Connect to the MongoDB cluster
     const client = await MongoClient.connect(process.env.MONGODB_URI, {
       useNewUrlParser: true,
