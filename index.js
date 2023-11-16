@@ -38,10 +38,10 @@ const generatePDF = async (name, certificateNumber) => {
   //  const text = name;
   //  const textWidth = SanChezFont.widthOfTextAtSize(text, 20);
    const centerX = firstPage.getWidth() / 2.6;
-   const centerY = firstPage.getHeight() / 2.3;
+   const centerY = firstPage.getHeight() / 2;
 
    const centerXno = firstPage.getWidth() / 4;
-   const centerYno = firstPage.getHeight() / 3;
+   const centerYno = firstPage.getHeight() / 1;
 
    const currentDate = new Date();
    const formattedDate = `${currentDate.getFullYear()}${currentDate.getMonth() + 1}${currentDate.getDate()}`;
@@ -57,7 +57,7 @@ const generatePDF = async (name, certificateNumber) => {
    firstPage.drawText(`No. ${formattedDate} 00${certificateNumber} ${uniqueNumber}`, {
       x: centerXno,
       y: centerYno,
-      size: 20,
+      size: 15,
       font: SanChezFont ,
       color: rgb(1, 1, 1),
    });
