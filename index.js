@@ -87,8 +87,9 @@ const sendToServer = async (name, email, certificateNumber, pdfDataUri) => {
       });
 
       if (!response.ok) {
-        throw new Error('Gagal mengirim data ke server');
-      }
+        const errorMessage = await response.text();
+        throw new Error(`Failed to send data to server. Server response: ${errorMessage}`);
+    }
   
       console.log('Data berhasil dikirim ke server');
       await sendEmail(name, email, certificateNumber, pdfDataUri);
