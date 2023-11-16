@@ -45,7 +45,7 @@ const generatePDF = async (name, certificateNumber) => {
 
    const currentDate = new Date();
    const lastTwoDigitsOfYear = String(currentDate.getFullYear()).slice(-2);
-   const formattedDate = `${currentDate.getDate()}/${lastTwoDigitsOfYear}/${currentDate.getMonth() + 1}/${currentDate.getDate()}`;
+   const formattedDate = `${lastTwoDigitsOfYear}/${currentDate.getMonth() + 1}/${currentDate.getDate()}`;
     firstPage.drawText(name, {
       x: 84,
       y: 645,
