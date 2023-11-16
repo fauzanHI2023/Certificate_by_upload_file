@@ -25,7 +25,7 @@ const generatePDF = async (name, certificateNumber) => {
     const pdfDoc = await PDFDocument.load(existingPdfBytes);
     pdfDoc.registerFontkit(fontkit);
 
-  const fontBytes = await fetch("Sanchez-Regular.ttf").then((res) =>
+  const fontBytes = await fetch("AvenirNextLTPro-Regular.otf").then((res) =>
   res.arrayBuffer()
 );
   // Memasukkan font ke dokumen
@@ -54,7 +54,6 @@ const generatePDF = async (name, certificateNumber) => {
       color: rgb(1, 1, 1),
    });
 
-   const uniqueNumber = generateUniqueNumber();
    firstPage.drawText(`${formattedDate}-00${certificateNumber}`, {
       x: 110,
       y: 855,
