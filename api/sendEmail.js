@@ -1,12 +1,12 @@
 const nodemailer = require('nodemailer');
 
 export default async function handler(req, res) {
-  const { name, email, certificateNumber, pdfDataUri } = req.body;
-
-  // Validate input
-  if (!name || !email || !certificateNumber || !pdfDataUri) {
-    return res.status(400).json({ error: 'Missing required fields' });
-  }
+    if (req.method === 'POST') {
+        const { name, email, certificateNumber, pdfDataUri } = req.body;
+    
+        if (!name || !certificateNumber) {
+          return res.status(400).json({ error: 'Name and certificateNumber are required' });
+        }
 
   try {
     // Create a Nodemailer transporter
@@ -39,4 +39,5 @@ export default async function handler(req, res) {
     console.error('Error sending email:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
+ }
 }
