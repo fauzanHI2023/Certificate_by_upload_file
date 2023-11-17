@@ -13,6 +13,13 @@ export default async function handler(req, res) {
       const db = client.db('certificate-hi-tanampohon');
       const collection = db.collection('tanampohon');
 
+      console.log(JSON.stringify({
+        name: name,
+        email: email,
+        certificateNumber: certificateNumber,
+        pdfDataUri: pdfDataUri,
+    }));
+
       const result = await collection.insertOne({
         name: name,
         email: email,
