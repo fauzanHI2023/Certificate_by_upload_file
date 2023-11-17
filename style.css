@@ -127,6 +127,20 @@ input[type="submit"] {
     cursor: pointer;
 }
 
+@media only screen and (max-width: 768px) {
+    header {
+      padding: 3rem 1rem;
+    }
+
+    .heading_text h1 { 
+      font-size: 2.5rem;
+    }
+
+    input.question + label > span {
+      font-size: 1.5rem;
+    }
+}
+
 
 
 
