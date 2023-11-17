@@ -97,14 +97,25 @@ const sendToServer = async (name, email, certificateNumber, pdfDataUri) => {
 
 const getCount = async () => {
   try {
-    const countResponse = await fetch('https://certificatehitanampohon.vercel.app/api/getCount');
-    const { count } = await countResponse.json();
+    const response = await fetch('https://certificatehitanampohon.vercel.app/api/getCount');
+    
+    if (!response.ok) {
+      throw new Error(`Failed to fetch count. Server responded with status ${response.status}`);
+    }
+
+    const count = await response.json(); // Assuming the response is JSON
+
+    console.log('Count:', count);
     return count;
   } catch (error) {
-    console.error('Error getting count:', error);
-    return 0;
+    console.error('Error getting count:', error.message);
+    // Handle the error (e.g., show a message to the user)
   }
 };
+
+// Usage
+getCount();
+
 
 const generateUniqueNumber = async () => {
   const currentCount = await getCount();
