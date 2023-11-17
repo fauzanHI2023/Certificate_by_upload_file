@@ -23,7 +23,7 @@ submitBtn.addEventListener("click", async () => {
         userName.reportValidity();
       }
 });
-const generatePDF = async (name, certificateNumber) => {
+const generatePDF = async (name) => {
     const existingPdfBytes = await fetch("CertificateFiks.pdf").then((res) =>
       res.arrayBuffer()
     );
