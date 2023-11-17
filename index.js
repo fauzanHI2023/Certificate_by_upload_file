@@ -23,7 +23,7 @@ submitBtn.addEventListener("click", async () => {
         userName.reportValidity();
       }
 });
-const generatePDF = async (name, certificateNumber) => {
+const generatePDF = async (name) => {
     const existingPdfBytes = await fetch("CertificateFiks.pdf").then((res) =>
       res.arrayBuffer()
     );
@@ -35,6 +35,8 @@ const generatePDF = async (name, certificateNumber) => {
   const fontBytes = await fetch("AvenirNextLTPro-Regular.otf").then((res) =>
   res.arrayBuffer()
 );
+
+generatePDF(nameValue);
   // Memasukkan font ke dokumen
   const SanChezFont  = await pdfDoc.embedFont(fontBytes);
    // Halaman pertama dokumen
@@ -61,6 +63,7 @@ const generatePDF = async (name, certificateNumber) => {
       color: rgb(1, 1, 1),
    });
 
+   certificateNumber = generateUniqueNumber();
    firstPage.drawText(`${formattedDate}-00${certificateNumber}`, {
       x: 170,
       y: 1370,
