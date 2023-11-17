@@ -1,5 +1,3 @@
-// api/getCount.js
-
 import { MongoClient } from 'mongodb';
 
 export default async function handler(req, res) {
@@ -12,10 +10,17 @@ export default async function handler(req, res) {
     const db = client.db('certificate-hi-tanampohon');
     const collection = db.collection('tanampohon');
 
-    const count = await collection.countDocuments();
-    res.status(200).json({ count });
+    // Find the count and increment it
+    const result = await collection.findOneAndUpdate(
+      { type: 'certificateCount' },
+      { $inc: { count: 1 } },
+      { returnDocument: 'after' }
+    );
+
+    const certificateNumber = result.value.count;
+    res.status(200).json({ certificateNumber });
   } catch (error) {
-    console.error('Error counting documents:', error);
+    console.error('Error getting next certificate number:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   } finally {
     if (client) {
