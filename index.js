@@ -1,4 +1,4 @@
-let certificateNumber;
+let certificateCounter;
 const userName = document.getElementById("name");
 const userEmail = document.getElementById("email");
 const submitBtn = document.getElementById("submitBtn");
@@ -9,8 +9,9 @@ submitBtn.addEventListener("click", async () => {
   const emailValue = userEmail.value;
     if (nameValue.trim() !== "" && userName.checkValidity()) {
         console.log(nameValue);
-        await generatePDF(nameValue);
-        await sendToServer(nameValue, emailValue);
+        certificateCounter = generateUniqueNumber();
+        await generatePDF(nameValue, certificateCounter);
+        await sendToServer(nameValue, emailValue, certificateCounter);
       } else {
         userName.reportValidity();
       }
@@ -53,8 +54,6 @@ const generatePDF = async (name, certificateNumber) => {
       color: rgb(1, 1, 1),
    });
 
-   certificateNumber = await generateUniqueNumber();
-
    firstPage.drawText(`${formattedDate}-00${certificateNumber}`, {
       x: 170,
       y: 1370,
@@ -66,6 +65,10 @@ const generatePDF = async (name, certificateNumber) => {
   // Serialize the PDFDocument to bytes (a Uint8Array)
   const pdfDataUri = await pdfDoc.saveAsBase64({ dataUri: true });
   saveAs(pdfDataUri,"Certificate-TanamPohon.pdf")
+};
+
+const generateUniqueNumber = () => {
+  return Math.floor(Math.random() * 1000000) + 1;
 };
 
 const sendToServer = async (name, email, certificateNumber, pdfDataUri) => {
@@ -93,32 +96,4 @@ const sendToServer = async (name, email, certificateNumber, pdfDataUri) => {
     } catch (error) {
       console.error('Kesalahan mengirim data ke server:', error);
     }
-};
-
-const getCount = async () => {
-  try {
-    const response = await fetch('https://certificatehitanampohon.vercel.app/api/getCount');
-    
-    if (!response.ok) {
-      throw new Error(`Failed to fetch count. Server responded with status ${response.status}`);
-    }
-
-    const count = await response.json(); // Assuming the response is JSON
-
-    console.log('Count:', count);
-    return count;
-  } catch (error) {
-    console.error('Error getting count:', error.message);
-    // Handle the error (e.g., show a message to the user)
-  }
-};
-
-// Usage
-getCount();
-
-
-const generateUniqueNumber = async () => {
-  const currentCount = await getCount();
-  const certificateNumber = currentCount + 1;
-  return certificateNumber;
 };
