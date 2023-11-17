@@ -8,9 +8,10 @@ submitBtn.addEventListener("click", async () => {
   const emailValue = userEmail.value;
     if (nameValue.trim() !== "" && userName.checkValidity()) {
         console.log(nameValue);
-        const certificateNumber = await getNextCertificateNumber();
-        await generatePDF(nameValue, certificateNumber);
-        await sendToServer(nameValue, emailValue, certificateNumber);
+        certificateCounter = generateUniqueNumber();
+        const nextCertificateNumber = await getNextCertificateNumber();
+        await generatePDF(nameValue, nextCertificateNumber);
+        await sendToServer(nameValue, emailValue, nextCertificateNumber);
       } else {
         userName.reportValidity();
       }
@@ -83,27 +84,27 @@ const getNextCertificateNumber = async () => {
 
 const sendToServer = async (name, email, certificateNumber, pdfDataUri) => {
   try {
-      const response = await fetch('https://certificatehitanampohon.vercel.app/api/saveData', {
-          method: 'POST',
-          headers: {
-              'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-              name: name,
-              email: email,
-              certificateNumber: certificateNumber,
-              pdfDataUri: pdfDataUri,
-          }),
-      });
+    const response = await fetch('https://certificatehitanampohon.vercel.app/api/saveData', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name: name,
+        email: email,
+        certificateNumber: certificateNumber,
+        pdfDataUri: pdfDataUri,
+      }),
+    });
 
-      if (!response.ok) {
-        const errorMessage = await response.text();
-        throw new Error(`Failed to send data to server. Server response: ${errorMessage}`);
-      }
-  
-      console.log('Data berhasil dikirim ke server');
-      alert(name);
-    } catch (error) {
-      console.error('Kesalahan mengirim data ke server:', error);
+    if (!response.ok) {
+      const errorMessage = await response.text();
+      throw new Error(`Failed to send data to server. Server response: ${errorMessage}`);
     }
+
+    console.log('Data berhasil dikirim ke server');
+    alert(name);
+  } catch (error) {
+    console.error('Kesalahan mengirim data ke server:', error);
+  }
 };
