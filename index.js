@@ -9,9 +9,8 @@ submitBtn.addEventListener("click", async () => {
   const emailValue = userEmail.value;
     if (nameValue.trim() !== "" && userName.checkValidity()) {
         console.log(nameValue);
-        certificateCounter = generateUniqueNumber();
-        await generatePDF(nameValue, certificateCounter);
-        await sendToServer(nameValue, emailValue, certificateCounter);
+        await generatePDF(nameValue);
+        await sendToServer(nameValue, emailValue);
       } else {
         userName.reportValidity();
       }
@@ -54,6 +53,8 @@ const generatePDF = async (name, certificateNumber) => {
       color: rgb(1, 1, 1),
    });
 
+   const certificateNumber = await generateUniqueNumber();
+
    firstPage.drawText(`${formattedDate}-00${certificateNumber}`, {
       x: 170,
       y: 1370,
@@ -65,10 +66,6 @@ const generatePDF = async (name, certificateNumber) => {
   // Serialize the PDFDocument to bytes (a Uint8Array)
   const pdfDataUri = await pdfDoc.saveAsBase64({ dataUri: true });
   saveAs(pdfDataUri,"Certificate-TanamPohon.pdf")
-};
-
-const generateUniqueNumber = () => {
-  return Math.floor(Math.random() * 1000000) + 1;
 };
 
 const sendToServer = async (name, email, certificateNumber, pdfDataUri) => {
@@ -96,4 +93,21 @@ const sendToServer = async (name, email, certificateNumber, pdfDataUri) => {
     } catch (error) {
       console.error('Kesalahan mengirim data ke server:', error);
     }
+};
+
+const getCount = async () => {
+  try {
+    const countResponse = await fetch('https://certificatehitanampohon.vercel.app/api/getCount');
+    const { count } = await countResponse.json();
+    return count;
+  } catch (error) {
+    console.error('Error getting count:', error);
+    return 0;
+  }
+};
+
+const generateUniqueNumber = async () => {
+  const currentCount = await getCount();
+  const certificateNumber = currentCount + 1;
+  return certificateNumber;
 };
