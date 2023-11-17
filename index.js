@@ -34,13 +34,6 @@ const generatePDF = async (name, certificateNumber) => {
    const firstPage = pages[0];
 
   // Menghitung position
-  //  const text = name;
-  //  const textWidth = SanChezFont.widthOfTextAtSize(text, 20);
-   const centerX = firstPage.getWidth() / 2.6;
-   const centerY = firstPage.getHeight() - 2;
-
-   const centerXno = firstPage.getWidth() / 4;
-   const centerYno = firstPage.getHeight() / 2;
 
    const currentDate = new Date();
    const lastTwoDigitsOfYear = String(currentDate.getFullYear()).slice(-2);
@@ -73,7 +66,12 @@ const getNextCertificateNumber = async () => {
       throw new Error(`Failed to fetch next certificate number. Server response: ${response.statusText}`);
     }
     const data = await response.json();
-    return data.certificateNumber;
+
+    if (data && data.nextCertificateNumber !== undefined) {
+      return data.nextCertificateNumber;
+    } else {
+      throw new Error('Invalid response format from the server');
+    }
   } catch (error) {
     console.error('Error getting next certificate number:', error.message);
     throw error;
