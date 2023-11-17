@@ -67,7 +67,7 @@ const getNextCertificateNumber = async () => {
     }
     const data = await response.json();
 
-    if (data && data.nextCertificateNumber !== undefined) {
+    if (data && data.nextCertificateNumber !== undefined) { 
       return data.nextCertificateNumber;
     } else {
       throw new Error('Invalid response format from the server');
