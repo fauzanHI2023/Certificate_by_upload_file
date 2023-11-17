@@ -35,8 +35,6 @@ const generatePDF = async (name) => {
   const fontBytes = await fetch("AvenirNextLTPro-Regular.otf").then((res) =>
   res.arrayBuffer()
 );
-
-generatePDF(nameValue);
   // Memasukkan font ke dokumen
   const SanChezFont  = await pdfDoc.embedFont(fontBytes);
    // Halaman pertama dokumen
