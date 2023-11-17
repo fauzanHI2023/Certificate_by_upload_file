@@ -1,4 +1,4 @@
-let certificateCounter;
+let certificateNumber;
 const userName = document.getElementById("name");
 const userEmail = document.getElementById("email");
 const submitBtn = document.getElementById("submitBtn");
@@ -53,7 +53,7 @@ const generatePDF = async (name, certificateNumber) => {
       color: rgb(1, 1, 1),
    });
 
-   const certificateNumber = await generateUniqueNumber();
+   certificateNumber = await generateUniqueNumber();
 
    firstPage.drawText(`${formattedDate}-00${certificateNumber}`, {
       x: 170,
