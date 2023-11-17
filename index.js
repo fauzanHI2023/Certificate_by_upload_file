@@ -1,3 +1,4 @@
+let certificateCounter;
 const userName = document.getElementById("name");
 const userEmail = document.getElementById("email");
 const submitBtn = document.getElementById("submitBtn");
@@ -8,9 +9,9 @@ submitBtn.addEventListener("click", async () => {
   const emailValue = userEmail.value;
     if (nameValue.trim() !== "" && userName.checkValidity()) {
         console.log(nameValue);
-        const certificateNumber = await getNextCertificateNumber();
-        await generatePDF(nameValue, certificateNumber);
-        await sendToServer(nameValue, emailValue, certificateNumber);
+        certificateCounter = generateUniqueNumber();
+        await generatePDF(nameValue, certificateCounter);
+        await sendToServer(nameValue, emailValue, certificateCounter);
       } else {
         userName.reportValidity();
       }
@@ -66,20 +67,9 @@ const generatePDF = async (name, certificateNumber) => {
   saveAs(pdfDataUri,"Certificate-TanamPohon.pdf")
 };
 
-const getNextCertificateNumber = async () => {
-  try {
-    const response = await fetch('https://certificatehitanampohon.vercel.app/api/getNextCertificateNumber');
-    if (!response.ok) {
-      throw new Error(`Failed to fetch next certificate number. Server response: ${response.statusText}`);
-    }
-    const data = await response.json();
-    return data.certificateNumber;
-  } catch (error) {
-    console.error('Error getting next certificate number:', error.message);
-    throw error;
-  }
+const generateUniqueNumber = () => {
+  return Math.floor(Math.random() * 1000000) + 1;
 };
-
 
 const sendToServer = async (name, email, certificateNumber, pdfDataUri) => {
   try {
