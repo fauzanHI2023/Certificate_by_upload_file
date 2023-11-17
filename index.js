@@ -1,3 +1,10 @@
+let certificateCounter;
+
+// Define generateUniqueNumber function
+const generateUniqueNumber = () => {
+  return Math.floor(Math.random() * 1000000) + 1;
+};
+
 const userName = document.getElementById("name");
 const userEmail = document.getElementById("email");
 const submitBtn = document.getElementById("submitBtn");
