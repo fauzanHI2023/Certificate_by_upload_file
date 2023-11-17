@@ -1,10 +1,3 @@
-let certificateCounter;
-
-// Define generateUniqueNumber function
-const generateUniqueNumber = () => {
-  return Math.floor(Math.random() * 1000000) + 1;
-};
-
 const userName = document.getElementById("name");
 const userEmail = document.getElementById("email");
 const submitBtn = document.getElementById("submitBtn");
@@ -15,7 +8,6 @@ submitBtn.addEventListener("click", async () => {
   const emailValue = userEmail.value;
     if (nameValue.trim() !== "" && userName.checkValidity()) {
         console.log(nameValue);
-        certificateCounter = generateUniqueNumber();
         const nextCertificateNumber = await getNextCertificateNumber();
         await generatePDF(nameValue, nextCertificateNumber);
         await sendToServer(nameValue, emailValue, nextCertificateNumber);
@@ -61,7 +53,6 @@ const generatePDF = async (name) => {
       color: rgb(1, 1, 1),
    });
 
-   certificateNumber = generateUniqueNumber();
    firstPage.drawText(`${formattedDate}-00${certificateNumber}`, {
       x: 170,
       y: 1370,
