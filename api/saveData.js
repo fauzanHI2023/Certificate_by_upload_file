@@ -4,6 +4,15 @@ export default async function handler(req, res) {
   if (req.method === 'POST') {
     const { name, email, certificateNumber, pdfDataUri } = req.body;
 
+    console.log('Request Body:', req.body);
+
+    console.log(JSON.stringify({
+        name: name,
+        email: email,
+        certificateNumber: certificateNumber,
+        pdfDataUri: pdfDataUri,
+    }));
+
     if (!name || !certificateNumber) {
       return res.status(400).json({ error: 'Name and certificateNumber are required' });
     }
@@ -12,13 +21,6 @@ export default async function handler(req, res) {
       const client = await MongoClient.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
       const db = client.db('certificate-hi-tanampohon');
       const collection = db.collection('tanampohon');
-
-      console.log(JSON.stringify({
-        name: name,
-        email: email,
-        certificateNumber: certificateNumber,
-        pdfDataUri: pdfDataUri,
-    }));
 
       const result = await collection.insertOne({
         name: name,
