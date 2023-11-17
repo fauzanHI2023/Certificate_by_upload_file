@@ -8,11 +8,10 @@
 
 header{
     padding: 150px;
-    /* background-image: url('bg_header.jfif');
+    background-image: url('banner.jpg');
     background-position: 50% 50%;
     background-repeat: no-repeat;
-    background-size: cover; */
-    background: #2689ca;
+    background-size: cover;
     color: #fff;
    
     text-align: center;
