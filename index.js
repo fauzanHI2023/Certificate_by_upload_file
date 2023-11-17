@@ -70,15 +70,16 @@ const getNextCertificateNumber = async () => {
   try {
     const response = await fetch('https://certificatehitanampohon.vercel.app/api/getNextCertificateNumber');
     if (!response.ok) {
-      throw new Error('Failed to fetch next certificate number');
+      throw new Error(`Failed to fetch next certificate number. Server response: ${response.statusText}`);
     }
     const data = await response.json();
     return data.certificateNumber;
   } catch (error) {
-    console.error('Error getting next certificate number:', error);
+    console.error('Error getting next certificate number:', error.message);
     throw error;
   }
 };
+
 
 const sendToServer = async (name, email, certificateNumber, pdfDataUri) => {
   try {
