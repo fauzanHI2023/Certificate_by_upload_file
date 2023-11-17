@@ -20,10 +20,5 @@ export default async function handler(req, res) {
   } catch (error) {
     console.error('Error getting next certificate number:', error);
     res.status(500).json({ error: 'Internal Server Error' });
-  } finally {
-    // Close the MongoDB connection
-    if (client) {
-      await client.close();
-    }
-  }
+  } 
 }
