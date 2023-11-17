@@ -2,10 +2,7 @@ import { MongoClient } from 'mongodb';
 
 export default async function handler(req, res) {
   try {
-    const client = await MongoClient.connect(process.env.MONGODB_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    const client = await MongoClient.connect(process.env.MONGODB_URI);
 
     const db = client.db('certificate-hi-tanampohon');
     const collection = db.collection('tanampohon');
