@@ -1,5 +1,4 @@
-// Import libraries
-import nodemailer from 'nodemailer';
+import { Resend } from 'resend';
 
 export default async function handler(req, res) {
   if (req.method === 'POST') {
@@ -7,20 +6,12 @@ export default async function handler(req, res) {
 
     console.log('Sending email to:', email);
 
-    // Konfigurasi transporter untuk layanan email
-    const transporter = nodemailer.createTransport({
-      host: 'smtp.office365.com', // Ganti dengan host yang sesuai
-      port: 587,
-      secure: false,
-      auth: {
-        user: 'Admin@human-initiative.org', // Ganti dengan email pengirim
-        pass: '1234Pkpu', // Ganti dengan password email pengirim
-      },
-    });
+    // Pengaturan API atau endpoint dari resend.com
+    const resend = new Resend('re_DgNVekbB_6atKyyq2GRJC997b6z6GqUg6'); // Ganti dengan URL yang sesuai
 
-    // Opsi email
-    const mailOptions = {
-      from: 'Admin@human-initiative.org', // Ganti dengan email pengirim
+    // Data yang akan dikirim ke resend.com
+    resend.emails.send({
+      from: 'your-username@resend.com', // Ganti dengan email pengirim dari resend.com
       to: email,
       subject: 'Certificate Information',
       text: `Dear ${name}, your certificate with number ${certificateNumber} is attached.`,
@@ -28,23 +19,36 @@ export default async function handler(req, res) {
         {
           filename: 'Certificate-TanamPohon.pdf',
           content: pdfDataUri.replace(/^data:application\/pdf;base64,/, ''),
-          encoding: 'base64',
         },
       ],
-    };
+      // Tambahan data yang mungkin diperlukan oleh API resend.com
+      // ...
+    });
 
     try {
-      // Mengirim email
-      const info = await transporter.sendMail(mailOptions);
+      // Mengirim data ke resend.com
+      const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          // Tambahan header atau token otorisasi mungkin diperlukan
+          // ...
+        },
+        body: JSON.stringify(requestData),
+      });
 
-      console.log('Email sent:', info);
-
-      return res.status(200).json({ success: true, message: 'Email successfully sent' });
+      if (response.ok) {
+        console.log('Email sent successfully');
+        return res.status(200).json({ success: true, message: 'Email successfully sent' });
+      } else {
+        console.error('Failed to send email:', response.statusText);
+        return res.status(500).json({ error: 'Internal Server Error' });
+      }
     } catch (error) {
-      console.error('Error sending email:', error);
+      console.error('Error sending email:', error.message);
       return res.status(500).json({ error: 'Internal Server Error' });
     }
   } else {
     return res.status(405).json({ error: 'Method Not Allowed' });
   }
-}
+};
