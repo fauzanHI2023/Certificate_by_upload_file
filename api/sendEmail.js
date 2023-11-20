@@ -8,7 +8,8 @@ export default async function handler(req, res) {
       console.log('Sending email to:', email);
 
       if (!email) {
-        throw new Error('No email recipient defined');
+        console.error('No email recipient defined');
+        return res.status(400).json({ error: 'Invalid payload: Missing email field' });
       }
 
       // Konfigurasi transporter untuk layanan email
