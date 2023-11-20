@@ -11,7 +11,7 @@ export default async function handler(req, res) {
 
     // Data yang akan dikirim ke resend.com
     resend.emails.send({
-      from: 'your-username@resend.com', // Ganti dengan email pengirim dari resend.com
+      from: 'admin@human-initiative.org', // Ganti dengan email pengirim dari resend.com
       to: email,
       subject: 'Certificate Information',
       text: `Dear ${name}, your certificate with number ${certificateNumber} is attached.`,
