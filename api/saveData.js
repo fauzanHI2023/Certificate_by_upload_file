@@ -41,7 +41,7 @@ export default async function handler(req, res) {
       });
 
       const mailOptions = {
-        from: 'antoalfian004@gmail.com', // Replace with your Gmail email
+        from: 'Human Initiative', // Replace with your Gmail email
         to: email,
         subject: 'Certificate Information',
         text: `Dear ${name}, your certificate with number ${certificateNumber} is attached.`,
