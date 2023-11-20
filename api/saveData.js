@@ -19,19 +19,6 @@ export default async function handler(req, res) {
     }
 
     try {
-      const client = await MongoClient.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
-      const db = client.db('certificate-hi-tanampohon');
-      const collection = db.collection('tanampohon');
-
-      const result = await collection.insertOne({
-        name: name,
-        email: email,
-        certificateNumber: certificateNumber,
-        pdfDataUri: pdfDataUri,
-      });
-
-      client.close();
-
       const transporter = nodemailer.createTransport({
         host: 'outlook.office365.com',
         port: 587,
@@ -61,6 +48,19 @@ export default async function handler(req, res) {
       };
 
       await transporter.sendMail(mailOptions);
+      
+      const client = await MongoClient.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+      const db = client.db('certificate-hi-tanampohon');
+      const collection = db.collection('tanampohon');
+
+      const result = await collection.insertOne({
+        name: name,
+        email: email,
+        certificateNumber: certificateNumber,
+        pdfDataUri: pdfDataUri,
+      });
+
+      client.close();
 
       return res.status(200).json({ success: true, data: result.ops[0] });
     } catch (error) {
