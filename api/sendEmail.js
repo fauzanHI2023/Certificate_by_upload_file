@@ -10,11 +10,7 @@ export default async function handler(req, res) {
     // Konfigurasi transporter untuk layanan email
     const transporter = nodemailer.createTransport({
       host: 'smtp-mail.outlook.com', // Ganti dengan host yang sesuai
-      service: 'outlook',                             // service name
-      secureConnection: false,
-        tls: {
-            ciphers: 'SSLv3'                            // tls version
-        },
+      secure: false,
       port: 587,                                      
       auth: {
         user: 'Admin@human-initiative.org', // Ganti dengan email pengirim
