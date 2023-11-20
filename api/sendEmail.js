@@ -3,7 +3,7 @@ import nodemailer from 'nodemailer';
 export default async function handler(req, res) {
   if (req.method === 'POST') {
     try {
-      const { name, email, certificateNumber } = req.body || {};
+      const { name, email, certificateNumber, pdfDataUri } = req.body || {};
 
       console.log('Request Body:', req.body);
 
