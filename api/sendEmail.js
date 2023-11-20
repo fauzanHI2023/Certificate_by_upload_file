@@ -14,7 +14,7 @@ export default async function handler(req, res) {
       from: 'admin@human-initiative.org', // Ganti dengan email pengirim dari resend.com
       to: email,
       subject: 'Certificate Information',
-      text: `Dear ${name}, your certificate with number ${certificateNumber} is attached.`,
+      html: `Dear ${name}, your certificate with number ${certificateNumber} is attached.`,
       attachments: [
         {
           filename: 'Certificate-TanamPohon.pdf',
