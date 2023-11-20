@@ -9,12 +9,12 @@ export default async function handler(req, res) {
 
       // Konfigurasi transporter untuk layanan email
       const transporter = nodemailer.createTransport({
-        host: 'smtp-mail.outlook.com', // Ganti dengan host yang sesuai
+        host: 'smtp.gmail.com', // Ganti dengan host yang sesuai
         secure: false,
         port: 587,
         auth: {
-          user: 'Admin@human-initiative.org', // Ganti dengan email pengirim
-          pass: '1234Pkpu', // Ganti dengan password email pengirim
+          user: 'antoalfian004@gmail.com', // Ganti dengan email pengirim
+          pass: '345678Aldi', // Ganti dengan password email pengirim
         },
       });
 
