@@ -11,7 +11,7 @@ export default async function handler(req, res) {
       const transporter = nodemailer.createTransport({
         host: 'smtp.gmail.com', // Ganti dengan host yang sesuai
         secure: false,
-        port: 465,
+        port: 587,
         auth: {
           user: 'antoalfian004@gmail.com', // Ganti dengan email pengirim
           pass: '345678Aldi', // Ganti dengan password email pengirim
