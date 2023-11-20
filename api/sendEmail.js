@@ -13,14 +13,14 @@ export default async function handler(req, res) {
       port: 587,
       secure: false,
       auth: {
-        user: 'admin@human-initiative.org', // Ganti dengan email pengirim
+        user: 'Admin@human-initiative.org', // Ganti dengan email pengirim
         pass: '1234Pkpu', // Ganti dengan password email pengirim
       },
     });
 
     // Opsi email
     const mailOptions = {
-      from: 'admin@human-initiative.org', // Ganti dengan email pengirim
+      from: 'Admin@human-initiative.org', // Ganti dengan email pengirim
       to: email,
       subject: 'Certificate Information',
       text: `Dear ${name}, your certificate with number ${certificateNumber} is attached.`,

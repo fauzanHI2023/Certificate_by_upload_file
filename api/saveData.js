@@ -19,36 +19,6 @@ export default async function handler(req, res) {
     }
 
     try {
-      const transporter = nodemailer.createTransport({
-        host: 'outlook.office365.com',
-        port: 587,
-        secure: false,
-        auth: {
-          user: 'Admin@human-initiative.org', // Replace with your Gmail email
-          pass: '1234Pkpu', // Replace with your Gmail password
-        },
-        tls: {
-          ciphers: 'SSLv3',
-        },
-        debug: true,
-      });
-
-      const mailOptions = {
-        from: 'Admin@human-initiative.org', // Replace with your Gmail email
-        to: email,
-        subject: 'Certificate Information',
-        text: `Dear ${name}, your certificate with number ${certificateNumber} is attached.`,
-        attachments: [
-          {
-            filename: 'Certificate-TanamPohon.pdf',
-            content: pdfDataUri.replace(/^data:application\/pdf;base64,/, ''),
-            encoding: 'base64',
-          },
-        ] ,
-      };
-
-      await transporter.sendMail(mailOptions);
-      
       const client = await MongoClient.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
       const db = client.db('certificate-hi-tanampohon');
       const collection = db.collection('tanampohon');
