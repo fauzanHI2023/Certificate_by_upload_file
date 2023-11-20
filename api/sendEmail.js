@@ -7,6 +7,10 @@ export default async function handler(req, res) {
 
       console.log('Sending email to:', email);
 
+      if (!email) {
+        throw new Error('No email recipient defined');
+      }
+
       // Konfigurasi transporter untuk layanan email
       const transporter = nodemailer.createTransport({
         host: 'smtp-mail.outlook.com', // Ganti dengan host yang sesuai
