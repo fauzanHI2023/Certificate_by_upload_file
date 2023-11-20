@@ -5,7 +5,7 @@ export default async function handler(req, res) {
     try {
       const { name, email, certificateNumber } = req.body || {};
 
-      console.log('Sending email to:', email);
+      console.log('Request Body:', req.body);
 
       if (!email) {
         console.error('No email recipient defined');
