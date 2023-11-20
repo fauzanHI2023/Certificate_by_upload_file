@@ -116,10 +116,10 @@ const sendEmail = async (name, email, certificateNumber, pdfDataUri) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        name: 'John Doe',
-        email: 'john.doe@example.com',
-        certificateNumber: '123',
-        pdfDataUri: 'base64encodedPDFData',
+        name: name,
+        email: email,
+        certificateNumber: certificateNumber,
+        pdfDataUri: pdfDataUri,
       }),
     });
 
