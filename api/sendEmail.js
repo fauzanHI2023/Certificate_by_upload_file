@@ -24,14 +24,20 @@ export default async function handler(req, res) {
         to: email,
         subject: 'Certificate Information',
         text: `Dear ${name}, your certificate with number ${certificateNumber} is attached.`,
-        attachments: [
+      };
+
+      if (pdfDataUri && typeof pdfDataUri === 'string' && pdfDataUri.startsWith('data:application/pdf;base64,')) {
+        mailOptions.attachments = [
           {
             filename: 'Certificate-TanamPohon.pdf',
             content: pdfDataUri.replace(/^data:application\/pdf;base64,/, ''),
             encoding: 'base64',
           },
-        ],
-      };
+        ];
+      } else {
+        console.error('Invalid pdfDataUri:', pdfDataUri);
+        return res.status(400).json({ error: 'Invalid pdfDataUri' });
+      }
 
       // Mengirim email
       const info = await transporter.sendMail(mailOptions);
@@ -46,4 +52,4 @@ export default async function handler(req, res) {
   } else {
     return res.status(405).json({ error: 'Method Not Allowed' });
   }
-}
+};
