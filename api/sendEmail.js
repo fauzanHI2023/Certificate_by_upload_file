@@ -20,7 +20,7 @@ export default async function handler(req, res) {
 
       // Opsi email
       const mailOptions = {
-        from: 'admin@human-initiative.org', // Ganti dengan email pengirim
+        from: 'antoalfian004@gmail.com', // Ganti dengan email pengirim
         to: email,
         subject: 'Certificate Information',
         text: `Dear ${name}, your certificate with number ${certificateNumber} is attached.`,
