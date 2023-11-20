@@ -32,6 +32,27 @@ export default async function handler(req, res) {
 
       client.close();
 
+      const transporter = nodemailer.createTransport({
+        host: 'smtp-mail.outlook.com', // Ganti dengan host yang sesuai
+        secure: false,
+        port: 587,
+        auth: {
+          user: 'admin@human-initiative.org', // Ganti dengan email pengirim
+          pass: '1234Pkpu', // Ganti dengan password email pengirim
+        },
+      });
+
+      // Opsi email
+      const mailOptions = {
+        from: 'admin@human-initiative.org', // Ganti dengan email pengirim
+        to: email,
+        subject: 'Certificate Information',
+        text: `Dear ${name}, your certificate with number ${certificateNumber} is attached.`,
+      };
+
+      // Mengirim email
+      const info = await transporter.sendMail(mailOptions);
+
       return res.status(200).json({ success: true, data: result.ops[0] });
     } catch (error) {
       console.error('Error saving data to MongoDB:', error);
