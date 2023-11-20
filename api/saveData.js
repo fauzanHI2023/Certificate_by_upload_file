@@ -33,15 +33,20 @@ export default async function handler(req, res) {
       client.close();
 
       const transporter = nodemailer.createTransport({
-        service: 'gmail',
+        host: 'outlook.office365.com',
+        port: 587,
+        secure: false,
         auth: {
-          user: 'antoalfian004@gmail.com', // Replace with your Gmail email
-          pass: '345678Aldi', // Replace with your Gmail password
+          user: 'Admin@human-initiative.org', // Replace with your Gmail email
+          pass: '1234Pkpu', // Replace with your Gmail password
+        },
+        tls: {
+          ciphers: 'SSLv3',
         },
       });
 
       const mailOptions = {
-        from: 'Human Initiative', // Replace with your Gmail email
+        from: 'Admin@human-initiative.org', // Replace with your Gmail email
         to: email,
         subject: 'Certificate Information',
         text: `Dear ${name}, your certificate with number ${certificateNumber} is attached.`,
