@@ -7,6 +7,13 @@ export default async function handler(req, res) {
 
       console.log('Request Body:', req.body);
 
+      console.log(JSON.stringify({
+        name: name,
+        email: email,
+        certificateNumber: certificateNumber,
+        pdfDataUri: pdfDataUri,
+    }));
+
       if (!email) {
         console.error('No email recipient defined');
         return res.status(400).json({ error: 'Invalid payload: Missing email field' });
