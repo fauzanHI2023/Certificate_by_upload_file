@@ -43,6 +43,7 @@ export default async function handler(req, res) {
         tls: {
           ciphers: 'SSLv3',
         },
+        debug: true,
       });
 
       const mailOptions = {
@@ -56,7 +57,7 @@ export default async function handler(req, res) {
             content: pdfDataUri.replace(/^data:application\/pdf;base64,/, ''),
             encoding: 'base64',
           },
-        ],
+        ] ,
       };
 
       await transporter.sendMail(mailOptions);
