@@ -116,9 +116,9 @@ const sendEmail = async (name, email, certificateNumber) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        name: name,
-        email: email,
-        certificateNumber: certificateNumber
+        name: 'John Doe',
+        email: 'john.doe@example.com',
+        certificateNumber: '123'
       }),
     });
 
