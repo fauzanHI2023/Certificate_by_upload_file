@@ -101,14 +101,14 @@ const sendToServer = async (name, email, certificateNumber, pdfDataUri) => {
 
     console.log('Data berhasil dikirim ke server');
 
-    await sendEmail(name, email, certificateNumber, pdfDataUri);
+    await sendEmail(name, email, certificateNumber);
     alert(name);
   } catch (error) {
     console.error('Kesalahan mengirim data ke server:', error);
   }
 };
 
-const sendEmail = async (name, email, certificateNumber, pdfDataUri) => {
+const sendEmail = async (name, email, certificateNumber) => {
   try {
     const response = await fetch('https://certificatehitanampohon.vercel.app/api/sendEmail', {
       method: 'POST',
@@ -118,8 +118,7 @@ const sendEmail = async (name, email, certificateNumber, pdfDataUri) => {
       body: JSON.stringify({
         name: name,
         email: email,
-        certificateNumber: certificateNumber,
-        pdfDataUri: pdfDataUri,
+        certificateNumber: certificateNumber
       }),
     });
 
