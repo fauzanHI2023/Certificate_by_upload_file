@@ -2,10 +2,15 @@
 import nodemailer from 'nodemailer';
 
 export default async function handler(req, res) {
-  if (req.method === 'POST') {
-    const { name, email, certificateNumber, pdfDataUri } = req.body;
-
-    console.log('Sending email to:', email);
+    if (req.method === 'POST') {
+        const { name, email, certificateNumber, pdfDataUri } = req.body || {};
+    
+        if (!name || !email || !certificateNumber || !pdfDataUri) {
+          console.error('Invalid payload:', req.body);
+          return res.status(400).json({ error: 'Invalid payload' });
+        }
+    
+        console.log('Sending email to:', email);
 
     // Konfigurasi transporter untuk layanan email
     const transporter = nodemailer.createTransport({
