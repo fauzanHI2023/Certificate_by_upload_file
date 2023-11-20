@@ -48,13 +48,6 @@ export default async function handler(req, res) {
         to: email,
         subject: 'Informasi Sertifikat',
         text: `Terima Kasih ${name} yang telah Membantu menanam Pohon untuk Masa Depan, Ini adalah nomor certificate kamu ${certificateNumber}.`,
-        attachments: [
-          {
-            filename: 'Certificate-TanamPohon.pdf',
-            content: pdfDataUri.replace(/^data:application\/pdf;base64,/, ''),
-            encoding: 'base64',
-          },
-        ],
       };
 
       // Mengirim email
