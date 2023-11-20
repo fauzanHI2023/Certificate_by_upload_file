@@ -10,8 +10,12 @@ export default async function handler(req, res) {
     // Konfigurasi transporter untuk layanan email
     const transporter = nodemailer.createTransport({
       host: 'smtp-mail.outlook.com', // Ganti dengan host yang sesuai
-      port: 587,
-      secure: false,
+      service: 'outlook',                             // service name
+      secureConnection: false,
+        tls: {
+            ciphers: 'SSLv3'                            // tls version
+        },
+      port: 587,                                      
       auth: {
         user: 'Admin@human-initiative.org', // Ganti dengan email pengirim
         pass: '1234Pkpu', // Ganti dengan password email pengirim
@@ -47,4 +51,4 @@ export default async function handler(req, res) {
   } else {
     return res.status(405).json({ error: 'Method Not Allowed' });
   }
-}
+};
