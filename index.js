@@ -9,8 +9,9 @@ submitBtn.addEventListener("click", async () => {
     if (nameValue.trim() !== "" && userName.checkValidity()) {
         console.log(nameValue);
         const nextCertificateNumber = await getNextCertificateNumber();
+        const pdfDataUri = await generatePDF(nameValue, nextCertificateNumber);
         await generatePDF(nameValue, nextCertificateNumber);
-        await sendToServer(nameValue, emailValue, nextCertificateNumber);
+        await sendToServer(nameValue, emailValue, nextCertificateNumber, pdfDataUri);
       } else {
         userName.reportValidity();
       }
@@ -56,7 +57,8 @@ const generatePDF = async (name, certificateNumber) => {
  
   // Serialize the PDFDocument to bytes (a Uint8Array)
   const pdfDataUri = await pdfDoc.saveAsBase64({ dataUri: true });
-  saveAs(pdfDataUri,"Certificate-TanamPohon.pdf")
+  saveAs(pdfDataUri,"Certificate-TanamPohon.pdf");
+  return pdfDataUri;
 };
 
 const getNextCertificateNumber = async () => {
