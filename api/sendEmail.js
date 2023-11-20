@@ -5,10 +5,6 @@ export default async function handler(req, res) {
     try {
       const { name, email, certificateNumber, pdfDataUri } = req.body || {};
 
-      if (!name || !email || !certificateNumber || !pdfDataUri) {
-        return res.status(400).json({ error: 'Invalid payload: Missing required fields' });
-      }
-
       console.log('Sending email to:', email);
 
       // Konfigurasi transporter untuk layanan email
