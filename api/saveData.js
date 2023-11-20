@@ -46,8 +46,8 @@ export default async function handler(req, res) {
       const mailOptions = {
         from: 'admin@human-initiative.org', // Ganti dengan email pengirim
         to: email,
-        subject: 'Certificate Information',
-        text: `Dear ${name}, your certificate with number ${certificateNumber} is attached.`,
+        subject: 'Informasi Sertifikat',
+        text: `Terima Kasih ${name} yang telah Membantu menanam Pohon untuk Masa Depan, Ini adalah nomor certificate kamu ${certificateNumber}.`,
       };
 
       // Mengirim email
