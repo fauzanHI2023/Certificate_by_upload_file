@@ -14,6 +14,7 @@ submitBtn.addEventListener("click", async () => {
         document.getElementById("form-display").style.display = "none";
         document.getElementById("loading-animation").style.display = "block";
         await sendToServer(nameValue, emailValue, nextCertificateNumber, pdfDataUri);
+        document.getElementById("form-display").style.display = "block";
         userName.value = "";
         userEmail.value = "";
         document.getElementById("popup").style.display = "flex";
