@@ -105,7 +105,7 @@ input:focus {
     outline: 0;
   }
 input.question{
-  font-size: 48px;
+  font-size: 24px;
   font-weight: 300;
   border-radius: 2px;
   margin: 0;
@@ -137,12 +137,14 @@ input.question:valid {
 
 input.question:focus + label > span,
 input.question:valid + label > span {
-  top: -100px;
-  font-size: 22px;
+  top: -4.5rem;
+  font-size: 14px;
   color: #333;
 }
 
-
+main div.form-certificate {
+  width: 100%;
+}
 
 input.question:valid + label {
   border-color: green;
@@ -158,7 +160,7 @@ input.question + label > span{
   position: absolute;
   color: #8F8F8F;
   font-size: 24px;
-  top: -66px;
+  top: -46px;
   left: 0px;
   z-index: -1;
   -webkit-transition: top 0.2s ease, font-size 0.2s ease, color 0.2s ease;
@@ -177,8 +179,18 @@ input[type="submit"] {
 }
 
 @media only screen and (max-width: 768px) {
+    body {
+      flex-direction: column;
+    }
+
     header {
       padding: 3rem 1rem;
+      width: 100%;
+      height: 20rem;
+    }
+
+    main {
+      width: 100%;
     }
 
     .heading_text h1 { 
