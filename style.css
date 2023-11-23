@@ -203,6 +203,13 @@ input[type="submit"] {
   padding: 3rem;
 }
 
+.popup .body-content p {
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 1.2;
+  text-align: center;
+}
+
 #loading-animation {
   display: none;
   justify-content: center;
