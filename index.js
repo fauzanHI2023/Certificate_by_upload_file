@@ -13,7 +13,7 @@ submitBtn.addEventListener("click", async () => {
         const pdfDataUri = await generatePDF(nameValue, nextCertificateNumber);
         await generatePDF(nameValue, nextCertificateNumber);
         await sendToServer(nameValue, emailValue, nextCertificateNumber, pdfDataUri);
-        document.getElementById("popup").style.display = "block";
+        document.getElementById("popup").style.display = "flex";
       } catch(error) {
         console.log('Error Occured', error);
       }
