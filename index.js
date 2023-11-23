@@ -12,7 +12,7 @@ submitBtn.addEventListener("click", async () => {
         const nextCertificateNumber = await getNextCertificateNumber();
         const pdfDataUri = await generatePDF(nameValue, nextCertificateNumber);
         document.getElementById("form-display").style.display = "none";
-        document.getElementById("loading-animation").style.display = "block";
+        document.getElementById("loading-animation").style.display = "flex";
         await sendToServer(nameValue, emailValue, nextCertificateNumber, pdfDataUri);
         document.getElementById("form-display").style.display = "block";
         userName.value = "";

@@ -203,6 +203,11 @@ input[type="submit"] {
 
 #loading-animation {
   display: none;
+  justify-content: center;
+  align-items: center;
+  color: #278fce;
+  font-weight: 800;
+  font-size: 1.5rem;
 }
 
 #loading-animation p {
