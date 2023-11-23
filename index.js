@@ -11,8 +11,11 @@ submitBtn.addEventListener("click", async () => {
       try {
         const nextCertificateNumber = await getNextCertificateNumber();
         const pdfDataUri = await generatePDF(nameValue, nextCertificateNumber);
-        await generatePDF(nameValue, nextCertificateNumber);
+        document.getElementById("loading-animation").style.display = "block";
         await sendToServer(nameValue, emailValue, nextCertificateNumber, pdfDataUri);
+        document.getElementById("form-display").style.display = "none";
+        userName.value = "";
+        userEmail.value = "";
         document.getElementById("popup").style.display = "flex";
       } catch(error) {
         console.log('Error Occured', error);
@@ -88,6 +91,7 @@ const getNextCertificateNumber = async () => {
 
 const sendToServer = async (name, email, certificateNumber, pdfDataUri) => {
   try {
+    document.getElementById("loading-animation").style.display = "block";
     const response = await fetch('https://certificatehitanampohon.vercel.app/api/saveData', {
       method: 'POST',
       headers: {
@@ -110,8 +114,10 @@ const sendToServer = async (name, email, certificateNumber, pdfDataUri) => {
 
     await sendEmail(name, email, certificateNumber, pdfDataUri);
     alert(name);
+    document.getElementById("loading-animation").style.display = "none";
   } catch (error) {
     console.error('Kesalahan mengirim data ke server:', error);
+    document.getElementById("loading-animation").style.display = "none";
   }
 };
 
