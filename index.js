@@ -11,9 +11,9 @@ submitBtn.addEventListener("click", async () => {
       try {
         const nextCertificateNumber = await getNextCertificateNumber();
         const pdfDataUri = await generatePDF(nameValue, nextCertificateNumber);
+        document.getElementById("form-display").style.display = "none";
         document.getElementById("loading-animation").style.display = "block";
         await sendToServer(nameValue, emailValue, nextCertificateNumber, pdfDataUri);
-        document.getElementById("form-display").style.display = "none";
         userName.value = "";
         userEmail.value = "";
         document.getElementById("popup").style.display = "flex";
