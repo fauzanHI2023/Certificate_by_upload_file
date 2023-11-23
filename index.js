@@ -7,14 +7,19 @@ submitBtn.addEventListener("click", async () => {
   const nameValue = userName.value;
   const emailValue = userEmail.value;
     if (nameValue.trim() !== "" && userName.checkValidity()) {
-        console.log(nameValue);
+      console.log(nameValue);
+      try {
         const nextCertificateNumber = await getNextCertificateNumber();
         const pdfDataUri = await generatePDF(nameValue, nextCertificateNumber);
         await generatePDF(nameValue, nextCertificateNumber);
         await sendToServer(nameValue, emailValue, nextCertificateNumber, pdfDataUri);
-      } else {
-        userName.reportValidity();
+        document.getElementById("popup").style.display = "block";
+      } catch(error) {
+        console.log('Error Occured', error);
       }
+    } else {
+      userName.reportValidity();
+    }
 });
 const generatePDF = async (name, certificateNumber) => {
     const existingPdfBytes = await fetch("CertificateFiks.pdf").then((res) =>
