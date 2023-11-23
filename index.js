@@ -18,6 +18,9 @@ submitBtn.addEventListener("click", async () => {
         userName.value = "";
         userEmail.value = "";
         document.getElementById("popup").style.display = "flex";
+        setTimeout(() => {
+          location.reload(true); // Reload the page
+        }, 5000);
       } catch(error) {
         console.log('Error Occured', error);
       }
