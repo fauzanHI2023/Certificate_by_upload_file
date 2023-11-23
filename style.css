@@ -197,8 +197,10 @@ input[type="submit"] {
   background: #fff;
   border-radius: 10px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 3rem;
 }
 
 #loading-animation {
