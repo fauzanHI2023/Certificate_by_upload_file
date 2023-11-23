@@ -78,7 +78,7 @@ main {
   }
 
 main .content-img {
-  margin-bottom: 2rem;
+  margin-bottom: 10rem;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -197,6 +197,10 @@ input[type="submit"] {
 
     .heading_text h1 { 
       font-size: 2.5rem;
+    }
+
+    main .content-img {
+      margin-bottom: 2rem;
     }
 
     input.question + label > span {
