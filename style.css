@@ -170,7 +170,7 @@ input.question + label > span{
 }
 
 input[type="submit"] {
-    background: #8bc34a;
+    background: #268ece;
     color: #fff;
     border: none;
     font-size: 0.8em;
@@ -215,8 +215,9 @@ input[type="submit"] {
   justify-content: center;
   align-items: center;
   color: #278fce;
-  font-weight: 800;
+  font-weight: 600;
   font-size: 1.5rem;
+  height: 200px;
 }
 
 #loading-animation p {
