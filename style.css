@@ -320,7 +320,7 @@ input[type="submit"] {
 
 @keyframes bounce {
   30% {
-    transform: translateY(-100px);
+    transform: translateY(-50px);
   }
   60% {
     transform: none;
