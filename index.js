@@ -1,6 +1,11 @@
 const userName = document.getElementById("name");
 const userEmail = document.getElementById("email");
 const submitBtn = document.getElementById("submitBtn");
+const overlay = document.getElementById("close");
+const popup = document.getElementById("popup");
+overlay.onclick = function () {
+  popup.style.display = 'none';
+};
 const { PDFDocument, rgb, degrees } = PDFLib;
 
 submitBtn.addEventListener("click", async () => {
