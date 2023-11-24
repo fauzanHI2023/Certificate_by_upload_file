@@ -11,7 +11,6 @@ submitBtn.addEventListener("click", async () => {
     try {
       const nextCertificateNumber = await getNextCertificateNumber();
       const pdfDataUri = await generatePDF(nameValue, nextCertificateNumber);
-      const jpgDataUri = await generateImage(nameValue, nextCertificateNumber, "image/jpeg");
       document.getElementById("form-display").style.display = "none";
       document.getElementById("loading-animation").style.display = "flex";
       await sendToServer(
@@ -79,34 +78,6 @@ const generatePDF = async (name, certificateNumber) => {
   const pdfDataUri = await pdfDoc.saveAsBase64({ dataUri: true });
   saveAs(pdfDataUri, "Certificate-TanamPohon.pdf");
   return pdfDataUri;
-};
-
-const generateImage = async (name, certificateNumber, format) => {
-  try {
-    // Show the loading indicator for generateImage
-    document.getElementById("loading-animation").style.display = "block";
-
-    const targetElement = document.getElementById("certificate-container");
-
-    const canvas = await html2canvas(targetElement, {
-      scale: 2, // Increase scale for better image quality
-    });
-
-    const dataUri = canvas.toDataURL(format);
-    saveAs(dataUri, `Certificate-TanamPohon.${format === "image/png" ? "png" : "jpg"}`);
-
-    // Hide the loading indicator for generateImage
-    document.getElementById("loading-animation").style.display = "none";
-
-    return dataUri;
-  } catch (error) {
-    console.error('Error generating image:', error);
-
-    // Hide the loading indicator in case of an error
-    document.getElementById("loading-animation").style.display = "none";
-
-    throw error;
-  }
 };
 
 const getNextCertificateNumber = async () => {
