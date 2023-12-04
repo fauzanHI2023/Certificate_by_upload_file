@@ -3,13 +3,14 @@ import nodemailer from 'nodemailer';
 
 export default async function handler(req, res) {
   if (req.method === 'POST') {
-    const { name, email, certificateNumber, pdfDataUri } = req.body;
+    const { name, email, telepon, certificateNumber, pdfDataUri } = req.body;
 
     console.log('Request Body:', req.body);
 
     console.log(JSON.stringify({
         name: name,
         email: email,
+        telepon: telepon,
         certificateNumber: certificateNumber,
         pdfDataUri: pdfDataUri,
     }));
@@ -26,6 +27,7 @@ export default async function handler(req, res) {
       const result = await collection.insertOne({
         name: name,
         email: email,
+        telepon: telepon,
         certificateNumber: certificateNumber,
         pdfDataUri: pdfDataUri,
       });

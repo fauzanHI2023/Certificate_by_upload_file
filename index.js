@@ -1,5 +1,6 @@
 const userName = document.getElementById("name");
 const userEmail = document.getElementById("email");
+const userTelepon = document.getElementById("telepon");
 const submitBtn = document.getElementById("submitBtn");
 const overlay = document.getElementById("close");
 const popup = document.getElementById("popup");
@@ -11,6 +12,7 @@ const { PDFDocument, rgb, degrees } = PDFLib;
 submitBtn.addEventListener("click", async () => {
   const nameValue = userName.value;
   const emailValue = userEmail.value;
+  const teleponValue = userTelepon.value;
   if (nameValue.trim() !== "" && userName.checkValidity()) {
     console.log(nameValue);
     try {
@@ -21,6 +23,7 @@ submitBtn.addEventListener("click", async () => {
       await sendToServer(
         nameValue,
         emailValue,
+        teleponValue,
         nextCertificateNumber,
         pdfDataUri
       );
@@ -108,7 +111,7 @@ const getNextCertificateNumber = async () => {
   }
 };
 
-const sendToServer = async (name, email, certificateNumber, pdfDataUri) => {
+const sendToServer = async (name, email, telepon, certificateNumber, pdfDataUri) => {
   try {
     document.getElementById("loading-animation").style.display = "block";
     const response = await fetch(
@@ -121,6 +124,7 @@ const sendToServer = async (name, email, certificateNumber, pdfDataUri) => {
         body: JSON.stringify({
           name: name,
           email: email,
+          telepon: telepon,
           certificateNumber: certificateNumber,
           pdfDataUri: pdfDataUri,
         }),
@@ -136,7 +140,7 @@ const sendToServer = async (name, email, certificateNumber, pdfDataUri) => {
 
     console.log("Data berhasil dikirim ke server");
 
-    await sendEmail(name, email, certificateNumber, pdfDataUri);
+    await sendEmail(name, email, telepon, certificateNumber, pdfDataUri);
     alert(name);
     document.getElementById("loading-animation").style.display = "none";
   } catch (error) {
@@ -145,7 +149,7 @@ const sendToServer = async (name, email, certificateNumber, pdfDataUri) => {
   }
 };
 
-const sendEmail = async (name, email, certificateNumber, pdfDataUri) => {
+const sendEmail = async (name, email, telepon, certificateNumber, pdfDataUri) => {
   try {
     const response = await fetch(
       "https://certificatehitanampohon.vercel.app/api/sendEmail",
@@ -157,6 +161,7 @@ const sendEmail = async (name, email, certificateNumber, pdfDataUri) => {
         body: JSON.stringify({
           name: name,
           email: email,
+          telepon: telepon,
           certificateNumber: certificateNumber,
           pdfDataUri: pdfDataUri,
         }),
