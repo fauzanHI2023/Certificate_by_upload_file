@@ -9,7 +9,7 @@ export default async function handler(req, res) {
     const db = client.db('certificate-hi-tanampohon');
   
     // Access the collection (replace 'yourCollection' with the actual collection name)
-    const collection = db.collection('tanampohon');
+    const collection = db.collection('tanampohon-collection');
   
     // Perform a query to retrieve the next certificate number
     const result = await collection.countDocuments();
