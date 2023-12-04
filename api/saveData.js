@@ -29,7 +29,6 @@ export default async function handler(req, res) {
         email: email,
         telepon: telepon,
         certificateNumber: certificateNumber,
-        pdfDataUri: pdfDataUri,
       });
 
       client.close();
