@@ -127,7 +127,7 @@ const sendToServer = async (name, email, telepon, certificateNumber, pdfDataUri)
           telepon: telepon,
           certificateNumber: certificateNumber,
           pdfDataUri: pdfDataUri,
-        }),
+        }), 
       }
     );
 
