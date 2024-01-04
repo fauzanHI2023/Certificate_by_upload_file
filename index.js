@@ -26,34 +26,23 @@ submitBtn.addEventListener("click", async () => {
       for (let i = 0; i < data.length; i++) {
         const rowData = data[i];
 
-        if (rowData.name && rowData.email && rowData.telepon) {
-          const nameValue = rowData.name;
-          const emailValue = rowData.email;
-          const teleponValue = rowData.telepon;
-
+        if (isValidRow(rowData)) {
+          const { name, email, telepon } = rowData;
           const nextCertificateNumber = await getNextCertificateNumber();
-          const pdfDataUri = await generatePDF(nameValue, nextCertificateNumber);
+          const pdfDataUri = await generatePDF(name, nextCertificateNumber);
 
-          document.getElementById("form-display").style.display = "none";
-          document.getElementById("loading-animation").style.display = "flex";
+          hideFormDisplay();
+          await sendCertificateData(name, email, telepon, nextCertificateNumber, pdfDataUri);
 
-          await sendToServer(
-            nameValue,
-            emailValue,
-            teleponValue,
-            nextCertificateNumber,
-            pdfDataUri
-          );
-
-          document.getElementById("form-display").style.display = "block";
+          showFormDisplay();
           fileInput.value = ""; // Clear file input
         } else {
           console.error("Missing required data in row ", i + 1);
         }
       }
 
-      downloadCertificatesBtn.style.display = "inline"; // Show download button
-      document.getElementById("popup").style.display = "flex";
+      showDownloadButton();
+      showPopup();
     } catch (error) {
       console.log("Error Occurred", error);
     }
@@ -61,6 +50,35 @@ submitBtn.addEventListener("click", async () => {
     console.error("Please select a file");
   }
 });
+
+const isValidRow = (rowData) => {
+  return rowData.name && rowData.email && rowData.telepon;
+};
+
+const hideFormDisplay = () => {
+  document.getElementById("form-display").style.display = "none";
+  document.getElementById("loading-animation").style.display = "flex";
+};
+
+const showFormDisplay = () => {
+  document.getElementById("form-display").style.display = "block";
+};
+
+const showDownloadButton = () => {
+  downloadCertificatesBtn.style.display = "inline";
+};
+
+const showPopup = () => {
+  document.getElementById("popup").style.display = "flex";
+};
+
+const sendCertificateData = async (name, email, telepon, certificateNumber, pdfDataUri) => {
+  try {
+    await sendToServer(name, email, telepon, certificateNumber, pdfDataUri);
+  } catch (error) {
+    console.error("Error sending certificate data to server:", error);
+  }
+};
 
 const downloadCertificates = async () => {
   try {
@@ -97,8 +115,6 @@ const readExcelFile = async (file) => {
 
 // Function to get the next certificate number
 const getNextCertificateNumber = async () => {
-  // Define your implementation for fetching the next certificate number
-  // For example, you can use a fetch request to your server
   try {
     const response = await fetch(
       "https://certificatehitanampohon.vercel.app/api/getNextCertificateNumber"
