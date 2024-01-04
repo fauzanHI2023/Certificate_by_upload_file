@@ -101,7 +101,7 @@ const getNextCertificateNumber = async () => {
   // For example, you can use a fetch request to your server
   try {
     const response = await fetch(
-      "https://certificate-by-upload-file.vercel.app/api/getNextCertificateNumberExcel"
+      "https://certificate-by-upload-file.vercel.app/api/getNextCertificateNumber"
     );
     if (!response.ok) {
       throw new Error(
