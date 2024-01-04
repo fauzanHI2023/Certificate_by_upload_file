@@ -5,9 +5,11 @@ export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', 'https://certificate-by-upload-file.vercel.app');
   res.setHeader('Access-Control-Allow-Methods', 'GET');
 
+  let client; // Declare the client variable outside the try-catch block
+
   try {
     // Connect to the MongoDB cluster
-    const client = await MongoClient.connect(process.env.MONGODB_URI, {
+    client = await MongoClient.connect(process.env.MONGODB_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
@@ -28,7 +30,7 @@ export default async function handler(req, res) {
     console.error('Error getting next certificate number:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   } finally {
-    // Close the MongoDB connection
+    // Close the MongoDB connection if the client is defined
     if (client) {
       await client.close();
     }
