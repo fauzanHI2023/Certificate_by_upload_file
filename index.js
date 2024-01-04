@@ -29,12 +29,13 @@ submitBtn.addEventListener("click", async () => {
     const sheet = workbook.Sheets[workbook.SheetNames[0]];
     data = XLSX.utils.sheet_to_json(sheet);
 
+    const nextCertificateNumber = await getNextCertificateNumber();
+
     for (let i = 0; i < data.length; i++) {
       const rowData = data[i];
 
       if (isValidRow(rowData)) {
         const { name, email, telepon } = rowData;
-        const nextCertificateNumber = await getNextCertificateNumber();
         const pdfDataUri = await generatePDF(name, nextCertificateNumber);
 
         hideFormDisplay();
@@ -126,7 +127,7 @@ const sendCertificateData = async (name, email, telepon, certificateNumber, pdfD
   try {
     await sendToServer(name, email, telepon, certificateNumber, pdfDataUri);
   } catch (error) {
-    console.error("Error sending certificate data to server:", error);
+    console.error("Error sending certificate data to the server:", error);
     throw error;
   }
 };
@@ -146,7 +147,7 @@ const downloadCertificates = async () => {
 
     saveAs(zipContent, "Certificates.zip");
   } catch (error) {
-    console.error("Error generating zip file", error);
+    console.error("Error generating the zip file", error);
   }
 };
 
@@ -172,7 +173,7 @@ const getNextCertificateNumber = async () => {
     );
     if (!response.ok) {
       throw new Error(
-        `Failed to fetch next certificate number. Server response: ${response.statusText}`
+        `Failed to fetch the next certificate number. Server response: ${response.statusText}`
       );
     }
     const responseData = await response.json();
@@ -183,7 +184,7 @@ const getNextCertificateNumber = async () => {
       throw new Error("Invalid response format from the server");
     }
   } catch (error) {
-    console.error("Error getting next certificate number:", error.message);
+    console.error("Error getting the next certificate number:", error.message);
     throw error;
   }
 };
