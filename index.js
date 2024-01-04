@@ -1,3 +1,5 @@
+let data; // Declare data in a scope accessible to other functions
+
 const submitBtn = document.getElementById("submitBtn");
 const overlay = document.getElementById("close");
 const popup = document.getElementById("popup");
@@ -19,7 +21,7 @@ submitBtn.addEventListener("click", async () => {
     try {
       const workbook = await readExcelFile(file);
       const sheet = workbook.Sheets[workbook.SheetNames[0]];
-      const data = XLSX.utils.sheet_to_json(sheet);
+      data = XLSX.utils.sheet_to_json(sheet);
 
       for (let i = 0; i < data.length; i++) {
         const rowData = data[i];
