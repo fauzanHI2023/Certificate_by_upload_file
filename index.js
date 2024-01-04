@@ -126,10 +126,34 @@ const generatePDF = async (name, certificateNumber) => {
 
 const sendCertificateData = async (name, email, telepon, certificateNumber, pdfDataUri) => {
   try {
-    await sendToServer(name, email, telepon, certificateNumber, pdfDataUri);
+    document.getElementById("loading-animation").style.display = "block";
+    const response = await fetch(
+      "https://certificatehitanampohon.vercel.app/api/saveData",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: name,
+          email: email,
+          telepon: telepon,
+          certificateNumber: certificateNumber,
+          pdfDataUri: pdfDataUri,
+        }), 
+      }
+    );
+
+    if (!response.ok) {
+      const errorMessage = await response.text();
+      throw new Error(
+        `Failed to send data to server. Server response: ${errorMessage}`
+      );
+    }
+
+    console.log("Data berhasil dikirim ke server");
   } catch (error) {
-    console.error("Error sending certificate data to the server:", error);
-    throw error;
+    console.error("Kesalahan mengirim data ke server:", error);
   }
 };
 
