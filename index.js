@@ -72,6 +72,58 @@ const showPopup = () => {
   document.getElementById("popup").style.display = "flex";
 };
 
+const generatePDF = async (name, certificateNumber) => {
+  try {
+    const existingPdfBytes = await fetch("CertificateFiks.pdf").then((res) =>
+      res.arrayBuffer()
+    );
+
+    // Load the existing PDF document
+    const pdfDoc = await PDFDocument.load(existingPdfBytes);
+    pdfDoc.registerFontkit(fontkit);
+
+    const fontBytes = await fetch("AvenirNextLTPro-Regular.otf").then((res) =>
+      res.arrayBuffer()
+    );
+    // Embed the font into the PDF document
+    const SanChezFont = await pdfDoc.embedFont(fontBytes);
+
+    // Get the first page of the document
+    const pages = pdfDoc.getPages();
+    const firstPage = pages[0];
+
+    // Add text to the PDF document
+    const currentDate = new Date();
+    const lastTwoDigitsOfYear = String(currentDate.getFullYear()).slice(-2);
+    const formattedDate = `${lastTwoDigitsOfYear}/${currentDate.getMonth() + 1}/${currentDate.getDate()}`;
+    
+    firstPage.drawText(name, {
+      x: 130,
+      y: 1035,
+      size: 36,
+      font: SanChezFont,
+      color: rgb(1, 1, 1),
+    });
+
+    firstPage.drawText(`${formattedDate}-00${certificateNumber}`, {
+      x: 170,
+      y: 1370,
+      size: 22,
+      font: SanChezFont,
+      color: rgb(1, 1, 1),
+    });
+
+    // Save the PDF as a base64 data URI
+    const pdfDataUri = await pdfDoc.saveAsBase64({ dataUri: true });
+
+    return pdfDataUri;
+  } catch (error) {
+    console.error("Error generating PDF:", error);
+    throw error;
+  }
+};
+
+
 const sendCertificateData = async (name, email, telepon, certificateNumber, pdfDataUri) => {
   try {
     await sendToServer(name, email, telepon, certificateNumber, pdfDataUri);
