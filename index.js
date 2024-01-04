@@ -1,5 +1,5 @@
 let data;
-let nextCertificateNumbers = [];
+let startingCertificateNumber;
 
 const submitBtn = document.getElementById("submitBtn");
 const overlay = document.getElementById("close");
@@ -30,17 +30,17 @@ submitBtn.addEventListener("click", async () => {
     const sheet = workbook.Sheets[workbook.SheetNames[0]];
     data = XLSX.utils.sheet_to_json(sheet);
 
-    nextCertificateNumbers = await getNextCertificateNumbers(data.length);
+    startingCertificateNumber = await getNextCertificateNumber();
 
     for (let i = 0; i < data.length; i++) {
       const rowData = data[i];
 
       if (isValidRow(rowData)) {
         const { name, email, telepon } = rowData;
-        const pdfDataUri = await generatePDF(name, nextCertificateNumbers[i]);
+        const pdfDataUri = await generatePDF(name, startingCertificateNumber + i);
 
         hideFormDisplay();
-        await sendCertificateData(name, email, telepon, nextCertificateNumbers[i], pdfDataUri);
+        await sendCertificateData(name, email, telepon, startingCertificateNumber + i, pdfDataUri);
 
         showFormDisplay();
         fileInput.value = ""; // Clear file input
@@ -138,20 +138,20 @@ const downloadCertificates = async () => {
     const zip = new JSZip();
 
     for (let i = 0; i < data.length; i++) {
-      const pdfDataUri = await generatePDF(data[i].name, nextCertificateNumbers[i]);
+      const pdfDataUri = await generatePDF(data[i].name, startingCertificateNumber + i);
 
-      zip.file(`Certificate_${nextCertificateNumbers[i]}.pdf`, pdfDataUri.split("base64,")[1], { base64: true });
+      zip.file(`Certificate_${startingCertificateNumber + i}.pdf`, pdfDataUri.split("base64,")[1], { base64: true });
     }
 
     const zipContent = await zip.generateAsync({ type: "blob" });
 
     saveAs(zipContent, "Certificates.zip");
   } catch (error) {
-    console.error("Error generating the zip file", error);
+    console.error("Error generating zip file", error);
   }
 };
 
-// Function to read the Excel file
+// Function to read Excel file
 const readExcelFile = async (file) => {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -165,28 +165,26 @@ const readExcelFile = async (file) => {
   });
 };
 
-// Function to get the next certificate numbers
-const getNextCertificateNumbers = async (count) => {
+// Function to get the next certificate number
+const getNextCertificateNumber = async () => {
   try {
     const response = await fetch(
-      `https://certificatehitanampohon.vercel.app/api/getNextCertificateNumbers?count=${count}`
+      "https://certificatehitanampohon.vercel.app/api/getNextCertificateNumber"
     );
     if (!response.ok) {
       throw new Error(
-        `Failed to fetch the next certificate numbers. Server response: ${response.statusText}`
+        `Failed to fetch next certificate number. Server response: ${response.statusText}`
       );
     }
     const responseData = await response.json();
 
-    if (responseData && responseData.nextCertificateNumbers !== undefined) {
-      return responseData.nextCertificateNumbers;
+    if (responseData && responseData.nextCertificateNumber !== undefined) {
+      return responseData.nextCertificateNumber;
     } else {
       throw new Error("Invalid response format from the server");
     }
   } catch (error) {
-    console.error("Error getting the next certificate numbers:", error.message);
+    console.error("Error getting next certificate number:", error.message);
     throw error;
   }
 };
-
-// Other functions remain unchanged
