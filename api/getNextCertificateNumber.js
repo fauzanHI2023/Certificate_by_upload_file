@@ -14,11 +14,20 @@ export default async function handler(req, res) {
     // Perform a query to retrieve the next certificate number
     const result = await collection.countDocuments();
     const nextCertificateNumber = result + 1;
+
+    // Set CORS headers to allow requests from your client domain
+    res.setHeader('Access-Control-Allow-Origin', 'https://certificate-by-upload-file.vercel.app');
+    res.setHeader('Access-Control-Allow-Methods', 'GET');
   
     // Send the next certificate number as a JSON response
     res.status(200).json({ nextCertificateNumber });
   } catch (error) {
     console.error('Error getting next certificate number:', error);
     res.status(500).json({ error: 'Internal Server Error' });
-  } 
+  } finally {
+    // Close the MongoDB connection
+    if (client) {
+      await client.close();
+    }
+  }
 }
