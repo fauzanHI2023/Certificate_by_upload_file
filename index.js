@@ -126,7 +126,6 @@ const generatePDF = async (name, certificateNumber) => {
 
 const sendCertificateData = async (name, email, telepon, certificateNumber, pdfDataUri) => {
   try {
-    document.getElementById("loading-animation").style.display = "block";
     const response = await fetch(
       "https://certificatehitanampohon.vercel.app/api/saveData",
       {
