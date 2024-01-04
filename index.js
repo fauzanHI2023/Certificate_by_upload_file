@@ -14,6 +14,8 @@ downloadCertificatesBtn.onclick = function () {
   downloadCertificates();
 };
 
+const { PDFDocument, rgb, degrees } = PDFLib;
+
 submitBtn.addEventListener("click", async () => {
   const file = fileInput.files[0];
 
