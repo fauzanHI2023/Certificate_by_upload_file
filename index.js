@@ -1,4 +1,4 @@
-let data; // Declare data in a scope accessible to other functions
+let data;
 
 const submitBtn = document.getElementById("submitBtn");
 const overlay = document.getElementById("close");
@@ -93,6 +93,32 @@ const readExcelFile = async (file) => {
     reader.onerror = (error) => reject(error);
     reader.readAsArrayBuffer(file);
   });
+};
+
+// Function to get the next certificate number
+const getNextCertificateNumber = async () => {
+  // Define your implementation for fetching the next certificate number
+  // For example, you can use a fetch request to your server
+  try {
+    const response = await fetch(
+      "https://certificatehitanampohon.vercel.app/api/getNextCertificateNumber"
+    );
+    if (!response.ok) {
+      throw new Error(
+        `Failed to fetch next certificate number. Server response: ${response.statusText}`
+      );
+    }
+    const data = await response.json();
+
+    if (data && data.nextCertificateNumber !== undefined) {
+      return data.nextCertificateNumber;
+    } else {
+      throw new Error("Invalid response format from the server");
+    }
+  } catch (error) {
+    console.error("Error getting next certificate number:", error.message);
+    throw error;
+  }
 };
 
 // Other functions remain unchanged
