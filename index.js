@@ -79,4 +79,18 @@ const downloadCertificates = async () => {
   }
 };
 
+// Function to read Excel file
+const readExcelFile = async (file) => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const data = new Uint8Array(e.target.result);
+      const workbook = XLSX.read(data, { type: 'array' });
+      resolve(workbook);
+    };
+    reader.onerror = (error) => reject(error);
+    reader.readAsArrayBuffer(file);
+  });
+};
+
 // Other functions remain unchanged
