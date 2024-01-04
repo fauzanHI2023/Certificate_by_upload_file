@@ -14,7 +14,7 @@ downloadCertificatesBtn.onclick = function () {
   downloadCertificates();
 };
 
-const { PDFDocument, rgb, degrees } = PDFLib;
+const { PDFDocument, rgb } = PDFLib;
 
 submitBtn.addEventListener("click", async () => {
   const file = fileInput.files[0];
@@ -55,7 +55,7 @@ submitBtn.addEventListener("click", async () => {
 });
 
 const isValidRow = (rowData) => {
-  return rowData.name && rowData.email && rowData.telepon;
+  return rowData.name !== undefined && rowData.email !== undefined && rowData.telepon !== undefined;
 };
 
 const hideFormDisplay = () => {
@@ -127,6 +127,7 @@ const sendCertificateData = async (name, email, telepon, certificateNumber, pdfD
     await sendToServer(name, email, telepon, certificateNumber, pdfDataUri);
   } catch (error) {
     console.error("Error sending certificate data to server:", error);
+    throw error;
   }
 };
 
